@@ -1,171 +1,94 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import { NeuralBackground } from "@/components/NeuralBackground";
-import { CustomCursor, Counter, useReveal } from "@/components/interactions";
+import { useReveal } from "@/components/interactions";
 import {
-  Newspaper, Target, Eye, Sparkles, Calendar, Mail, Users, Database,
-  BarChart3, ArrowRight, Brain, Globe, Github, Twitter, Linkedin,
-  Scale, Megaphone, BookOpen, Filter, Layers, Gauge, Activity, Zap, FileText,
+  Target, MessageSquare, Scale, Gauge, Eye, Layers,
+  Calendar, Mail, FileText, ArrowRight, ExternalLink, MapPin,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "VARTA 2026 — Viewpoint Analysis & Representation of Targeted Actors" },
-      { name: "description", content: "VARTA 2026 — A shared task on detecting target actors and analyzing viewpoints in Indian news, across multiple languages." },
-      { property: "og:title", content: "VARTA 2026" },
-      { property: "og:description", content: "Viewpoint Analysis and Representation of Targeted Actors in Indian News — shared task & research conference 2026." },
+      { title: "VARTA 2026 — Viewpoint Analysis & Representation of Targeted Actors in Indian News" },
+      { name: "description", content: "VARTA 2026, a FIRE 2026 Shared Task on entity-level viewpoint analysis, polarity, and intensity estimation in multilingual Indian news." },
+      { property: "og:title", content: "VARTA 2026 — FIRE 2026 Shared Task" },
+      { property: "og:description", content: "Viewpoint Analysis and Representation of Targeted Actors in Indian News." },
     ],
   }),
   component: Home,
 });
 
-const KEYWORDS = [
-  { text: "Government", x: "6%", y: "18%", size: "3.6rem", delay: "0s" },
-  { text: "Opposition", x: "78%", y: "10%", size: "3.8rem", delay: "1s" },
-  { text: "Narrative", x: "10%", y: "62%", size: "4rem", delay: "2s" },
-  { text: "Entity", x: "82%", y: "68%", size: "4.2rem", delay: "0.5s" },
-  { text: "Sentiment", x: "44%", y: "84%", size: "3.4rem", delay: "1.5s" },
-  { text: "मीडिया", x: "55%", y: "28%", size: "3.8rem", delay: "2.5s" },
-  { text: "Viewpoint", x: "28%", y: "44%", size: "5rem", delay: "0.8s" },
-  { text: "Bias", x: "68%", y: "48%", size: "4rem", delay: "1.8s" },
-  { text: "Opinion", x: "20%", y: "80%", size: "3.4rem", delay: "0.3s" },
-  { text: "News", x: "88%", y: "32%", size: "3.4rem", delay: "1.2s" },
-];
-
-const NEWS_SNIPPETS = [
-  { t: "“Opposition slams policy rollout…”", x: "12%", y: "32%" },
-  { t: "“Government announces reforms…”", x: "72%", y: "22%" },
-  { t: "“Critics question minister's stance”", x: "18%", y: "72%" },
-  { t: "“Media coverage divides nation”", x: "76%", y: "78%" },
-  { t: "“Party leader defends position”", x: "48%", y: "16%" },
-];
-
 function Home() {
   useReveal();
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const heroTitle = "VARTA 2026";
-  const subTitle = "Viewpoint Analysis & Representation of Targeted Actors in Indian News";
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <NeuralBackground />
-      <CustomCursor />
-
-      {/* Floating background keywords */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        {KEYWORDS.map((k, i) => (
-          <div
-            key={i}
-            className="float-keyword"
-            style={{
-              left: k.x,
-              top: k.y,
-              fontSize: k.size,
-              animation: `${i % 2 ? "float-slower" : "float-slow"} ${10 + i}s ease-in-out infinite`,
-              animationDelay: k.delay,
-            }}
-          >
-            {k.text}
-          </div>
-        ))}
-        {NEWS_SNIPPETS.map((n, i) => (
-          <div
-            key={i}
-            className="news-snippet"
-            style={{
-              left: n.x,
-              top: n.y,
-              animation: `${i % 2 ? "float-slower" : "float-slow"} ${14 + i * 2}s ease-in-out infinite`,
-              animationDelay: `${i * 0.7}s`,
-            }}
-          >
-            {n.t}
-          </div>
-        ))}
-      </div>
 
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
         <div className="glass-strong mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-          <a href="#hero" className="flex items-center gap-2 font-display text-lg font-bold">
-            <Brain className="h-5 w-5 text-[oklch(0.82_0.16_200)]" />
-            <span className="text-gradient">VARTA</span>
+          <a href="#hero" className="flex items-baseline gap-2 font-semibold tracking-tight">
+            <span className="text-foreground">VARTA</span>
             <span className="text-xs text-muted-foreground">2026</span>
           </a>
-          <div className="hidden gap-6 text-sm font-medium md:flex">
-            {["About", "Problem", "Workflow", "Dataset", "Metrics", "Dates", "FAQ"].map((l) => (
-              <a key={l} href={`#${l.toLowerCase()}`} className="text-muted-foreground transition hover:text-foreground">
+          <div className="hidden gap-7 text-sm md:flex">
+            {[
+              ["About", "about"],
+              ["Objectives", "objectives"],
+              ["Languages", "languages"],
+              ["Dataset", "dataset"],
+              ["Dates", "dates"],
+              ["Organizers", "organizers"],
+              ["FAQ", "faq"],
+            ].map(([l, h]) => (
+              <a key={h} href={`#${h}`} className="link-underline text-muted-foreground transition hover:text-foreground">
                 {l}
               </a>
             ))}
           </div>
-          <a href="#contact" className="btn-primary !py-2 !px-4 !text-sm">Register</a>
+          <a href="#contact" className="btn-primary !py-2 !px-4 !text-xs">Participate</a>
         </div>
       </nav>
 
       {/* Hero */}
-      <section id="hero" className="relative z-10 flex min-h-screen items-center justify-center px-6 pt-32">
-        <div
-          className="absolute inset-0 -z-10"
-          style={{
-            background: "radial-gradient(ellipse at 50% 30%, oklch(0.4 0.2 290 / 0.4), transparent 60%)",
-            transform: `translateY(${scrollY * 0.3}px)`,
-          }}
-        />
+      <section id="hero" className="relative z-10 flex min-h-screen items-center px-6 pt-32">
         <div className="mx-auto max-w-5xl text-center">
-          <div className="reveal-zoom mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium backdrop-blur-xl">
-            <Sparkles className="h-3.5 w-3.5 text-[oklch(0.82_0.16_200)]" />
-            <span>Shared Task · ICON 2026 Co-located</span>
+          <div className="reveal mb-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.78_0.12_215)]" />
+            FIRE 2026 · Shared Task
           </div>
 
-          <h1 className="char-reveal font-display text-6xl font-bold leading-[0.95] tracking-tight md:text-8xl lg:text-[9rem]">
-            {heroTitle.split("").map((c, i) => (
-              <span
-                key={i}
-                className={c === " " ? "mx-4" : "text-gradient"}
-                style={{ animationDelay: `${0.05 * i + 0.2}s` }}
-              >
-                {c === " " ? "\u00A0" : c}
-              </span>
-            ))}
+          <h1 className="reveal font-display text-6xl font-semibold leading-[1.05] tracking-tight md:text-8xl">
+            <span className="text-gradient">VARTA 2026</span>
           </h1>
 
-          <p className="reveal mt-8 text-balance text-lg text-muted-foreground md:text-2xl" style={{ transitionDelay: "0.8s" }}>
-            {subTitle}
+          <p className="reveal mx-auto mt-8 max-w-3xl text-balance text-lg leading-relaxed text-foreground/85 md:text-xl" style={{ transitionDelay: "0.1s" }}>
+            Viewpoint Analysis and Representation of Targeted Actors in Indian News
           </p>
 
-          <p className="reveal mx-auto mt-4 max-w-2xl text-sm text-muted-foreground/80 md:text-base" style={{ transitionDelay: "1s" }}>
-            A multilingual shared task uncovering how Indian news represents entities — across viewpoints, narratives, polarities, and intensities.
+          <p className="reveal mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base" style={{ transitionDelay: "0.2s" }}>
+            A FIRE 2026 Shared Task focused on understanding how entities are portrayed in multilingual
+            news articles through viewpoint analysis, polarity identification, and intensity estimation.
           </p>
 
-          <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-4" style={{ transitionDelay: "1.2s" }}>
-            <a href="#about" className="btn-primary">
-              Explore the Task <ArrowRight className="h-4 w-4" />
+          <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-3" style={{ transitionDelay: "0.3s" }}>
+            <a href="#contact" className="btn-primary">
+              Participate Now <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#dates" className="btn-ghost">Key Dates</a>
+            <a href="#about" className="btn-ghost">Learn More</a>
           </div>
 
-          {/* Stats */}
-          <div className="reveal mt-20 grid grid-cols-2 gap-4 md:grid-cols-4" style={{ transitionDelay: "1.4s" }}>
+          <div className="reveal mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-white/10 bg-white/5 md:grid-cols-4" style={{ transitionDelay: "0.4s" }}>
             {[
-              { v: 5, s: "", l: "Indian Languages" },
-              { v: 50000, s: "+", l: "News Articles" },
-              { v: 6, s: "", l: "Eval Metrics" },
-              { v: 25, s: "+", l: "Participating Teams" },
+              { v: "4+", l: "Indian Languages" },
+              { v: "4", l: "Subtasks" },
+              { v: "2026", l: "FIRE Edition" },
+              { v: "Open", l: "Participation" },
             ].map((s) => (
-              <div key={s.l} className="glass p-5">
-                <div className="text-gradient font-display text-3xl font-bold md:text-4xl">
-                  <Counter to={s.v} suffix={s.s} />
-                </div>
-                <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">{s.l}</div>
+              <div key={s.l} className="bg-[oklch(0.18_0.025_250)] px-5 py-6">
+                <div className="font-display text-2xl font-semibold text-foreground md:text-3xl">{s.v}</div>
+                <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{s.l}</div>
               </div>
             ))}
           </div>
@@ -175,222 +98,288 @@ function Home() {
       {/* About */}
       <section id="about" className="section relative z-10">
         <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="The Task" title="About VARTA" />
-          <div className="mt-16 grid gap-8 md:grid-cols-2">
-            <div className="reveal-left glass glow-card p-8 md:p-10">
-              <Newspaper className="mb-5 h-9 w-9 text-[oklch(0.82_0.16_200)]" />
-              <h3 className="heading-hover font-display text-2xl font-bold">The Mission</h3>
+          <div className="reveal text-center">
+            <span className="eyebrow">About</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">About VARTA 2026</span>
+            </h2>
+          </div>
+
+          <div className="mt-16 grid gap-6 md:grid-cols-2">
+            <div className="reveal card-pro p-8 md:p-10">
+              <h3 className="heading-hover font-display text-xl font-semibold">Overview</h3>
+              <p className="mt-5 leading-relaxed text-muted-foreground">
+                VARTA 2026 is a shared task organized as part of <span className="text-foreground">FIRE 2026</span>. It focuses on understanding how
+                entities — political leaders, organizations, institutions, and public stakeholders — are
+                portrayed in multilingual news articles.
+              </p>
               <p className="mt-4 leading-relaxed text-muted-foreground">
-                Indian news is a rich, multilingual landscape where political actors, institutions, and movements are framed through countless competing viewpoints. VARTA challenges researchers to build systems that <span className="text-foreground">identify targeted entities</span> and <span className="text-foreground">decode the viewpoints</span> projected onto them.
+                News articles often contain multiple viewpoints and describe different entities in
+                positive, negative, or factual ways. Traditional sentiment analysis assigns a single
+                sentiment to an entire sentence or document, which is insufficient for the complexity
+                of news content.
               </p>
             </div>
-            <div className="reveal-right glass glow-card p-8 md:p-10">
-              <Globe className="mb-5 h-9 w-9 text-[oklch(0.72_0.25_340)]" />
-              <h3 className="heading-hover font-display text-2xl font-bold">Why It Matters</h3>
+
+            <div className="reveal card-pro p-8 md:p-10" style={{ transitionDelay: "0.1s" }}>
+              <h3 className="heading-hover font-display text-xl font-semibold">Research Focus</h3>
+              <p className="mt-5 leading-relaxed text-muted-foreground">
+                VARTA addresses this challenge by encouraging the development of systems that can
+                identify target entities, extract opinions expressed toward them, determine sentiment
+                polarity, and estimate the strength of those opinions.
+              </p>
               <p className="mt-4 leading-relaxed text-muted-foreground">
-                In a media ecosystem reaching 500M+ readers in over a dozen languages, understanding <span className="text-foreground">how entities are represented</span> is essential for media literacy, bias research, and trustworthy AI for the Global South.
+                The shared task aims to advance research in multilingual NLP, media bias analysis,
+                computational journalism, long-context reasoning, and explainable AI.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Problem */}
-      <section id="problem" className="section relative z-10">
-        <div className="mx-auto max-w-5xl">
-          <SectionHeader eyebrow="Problem Statement" title="Why It's Hard" />
-          <p className="reveal mx-auto mt-6 max-w-2xl text-center text-muted-foreground">
-            Traditional document-level sentiment fails on news. Articles are long, multi-entity, and packed with conflicting opinions. Polarity must be grounded to <span className="text-foreground">whom</span>, not the document.
-          </p>
+      {/* Objectives */}
+      <section id="objectives" className="section relative z-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="reveal text-center">
+            <span className="eyebrow">Objectives</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Task Objectives</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-muted-foreground">
+              Six interconnected objectives spanning entity-level understanding and discourse-level reasoning.
+            </p>
+          </div>
 
-          <div className="mt-14 grid gap-3">
+          <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: FileText, title: "Long Articles", desc: "Thousands of tokens spanning multiple narratives and quoted sources." },
-              { icon: Users, title: "Multiple Entities", desc: "Politicians, parties, institutions and movements all referenced in one piece." },
-              { icon: Layers, title: "Mixed Opinions", desc: "A single article praises one actor, criticises another, stays neutral on a third." },
-              { icon: Filter, title: "Distributed Context", desc: "Stance signals scatter across paragraphs — coreference and discourse cues matter." },
-              { icon: Target, title: "Need for Entity-Level Analysis", desc: "Each opinion must be bound to its specific target with polarity and intensity." },
-            ].map((s, i, arr) => (
-              <div key={s.title} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
-                <div className="cascade-step">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] shadow-[0_8px_30px_oklch(0.55_0.25_290/0.4)]">
-                    <s.icon className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="heading-hover font-display text-lg font-bold">{s.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
-                  </div>
+              { n: "01", icon: Target, title: "Entity Identification", desc: "Detect target actors — politicians, parties, institutions, organizations, and stakeholders — referenced within news articles." },
+              { n: "02", icon: MessageSquare, title: "Opinion Extraction", desc: "Locate spans of text that express opinions, evaluations, or judgements directed at each identified entity." },
+              { n: "03", icon: Scale, title: "Polarity Classification", desc: "Assign each entity–opinion pair a polarity label: positive, negative, or neutral, grounded in textual evidence." },
+              { n: "04", icon: Gauge, title: "Intensity Prediction", desc: "Estimate the strength of the expressed opinion on a graded scale, capturing nuanced stance." },
+              { n: "05", icon: Eye, title: "Media Bias Analysis", desc: "Reveal systematic framing patterns across outlets, languages, and regions through entity-centric signals." },
+              { n: "06", icon: Layers, title: "Long Context Understanding", desc: "Reason across paragraphs, coreference chains, and multi-entity discourse rather than isolated sentences." },
+            ].map((o, i) => (
+              <div key={o.n} className="reveal card-pro p-7" style={{ transitionDelay: `${i * 0.05}s` }}>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs tracking-widest text-muted-foreground">{o.n}</span>
+                  <o.icon className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
                 </div>
-                {i < arr.length - 1 && <div className="cascade-arrow" />}
+                <h3 className="heading-hover mt-5 font-display text-lg font-semibold">{o.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{o.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Workflow */}
-      <section id="workflow" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Pipeline" title="Visual Workflow" />
-          <div className="reveal-zoom mt-16 glass-strong p-8 md:p-12">
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-6">
-              {[
-                { icon: Newspaper, label: "News Article", sub: "Multilingual input" },
-                { icon: Target, label: "Entity Detection", sub: "Targets in text" },
-                { icon: Eye, label: "Opinion Extraction", sub: "Spans & cues" },
-                { icon: Scale, label: "Polarity Analysis", sub: "Pos / Neu / Neg" },
-                { icon: Gauge, label: "Intensity Scoring", sub: "Strength of stance" },
-                { icon: BarChart3, label: "Structured Output", sub: "Per-entity record" },
-              ].map((s) => (
-                <div key={s.label} className="flex flex-col items-center text-center">
-                  <div className="pulse-glow flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[oklch(0.25_0.08_290)] to-[oklch(0.18_0.05_280)] ring-1 ring-white/10">
-                    <s.icon className="h-7 w-7 text-[oklch(0.82_0.16_200)]" />
-                  </div>
-                  <div className="mt-3 font-display text-sm font-semibold">{s.label}</div>
-                  <div className="text-[11px] text-muted-foreground">{s.sub}</div>
-                </div>
-              ))}
-            </div>
+      {/* Languages */}
+      <section id="languages" className="section relative z-10">
+        <div className="mx-auto max-w-5xl">
+          <div className="reveal text-center">
+            <span className="eyebrow">Languages</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Supported Languages</span>
+            </h2>
           </div>
 
-          {/* Example output */}
-          <div className="mt-12">
-            <div className="reveal mb-6 text-center text-xs font-semibold uppercase tracking-[0.25em] text-[oklch(0.82_0.16_200)]">
-              Example Output
-            </div>
-            <div className="grid gap-4 md:grid-cols-4">
-              {[
-                { label: "Target Entity", value: "Finance Minister", color: "oklch(0.82 0.16 200)" },
-                { label: "Opinion", value: "“praised the budget rollout”", color: "oklch(0.72 0.25 340)" },
-                { label: "Polarity", value: "Positive", color: "oklch(0.78 0.18 160)" },
-                { label: "Intensity", value: "0.82", color: "oklch(0.65 0.25 300)" },
-              ].map((c, i) => (
-                <div key={c.label} className="reveal glass glow-card p-5" style={{ transitionDelay: `${i * 0.08}s` }}>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: c.color }}>{c.label}</div>
-                  <div className="mt-2 font-display text-lg font-bold">{c.value}</div>
-                </div>
-              ))}
-            </div>
+          <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {[
+              { lang: "English", native: "English", code: "EN" },
+              { lang: "Hindi", native: "हिन्दी", code: "HI" },
+              { lang: "Bengali", native: "বাংলা", code: "BN" },
+              { lang: "Telugu", native: "తెలుగు", code: "TE" },
+            ].map((l, i) => (
+              <div key={l.code} className="reveal card-pro p-6 text-center" style={{ transitionDelay: `${i * 0.06}s` }}>
+                <div className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground">{l.code}</div>
+                <div className="font-display mt-3 text-3xl font-medium text-foreground">{l.native}</div>
+                <div className="mt-2 text-sm text-muted-foreground">{l.lang}</div>
+              </div>
+            ))}
           </div>
+
+          <p className="reveal mt-8 text-center text-sm italic text-muted-foreground">
+            Additional languages may be added based on availability.
+          </p>
         </div>
       </section>
 
       {/* Dataset */}
       <section id="dataset" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Dataset" title="VARTA-Corpus" />
-          <p className="reveal mx-auto mt-6 max-w-2xl text-center text-muted-foreground">
-            Curated articles from leading Indian outlets, annotated for entities and viewpoints across five major languages.
-          </p>
+        <div className="mx-auto max-w-4xl">
+          <div className="reveal text-center">
+            <span className="eyebrow">Dataset</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Dataset & Guidelines</span>
+            </h2>
+          </div>
 
-          <div className="reveal mt-14 grid grid-cols-2 gap-5 md:grid-cols-5">
-            {[
-              { lang: "English", native: "English", count: "12k" },
-              { lang: "Hindi", native: "हिन्दी", count: "10k" },
-              { lang: "Telugu", native: "తెలుగు", count: "8k" },
-              { lang: "Tamil", native: "தமிழ்", count: "8k" },
-              { lang: "Bengali", native: "বাংলা", count: "7k" },
-            ].map((l, i) => (
-              <div
-                key={l.lang}
-                className="glass glow-card orbit-card relative overflow-hidden p-6 text-center"
-                style={{
-                  animationDelay: `${i * 0.4}s`,
-                  transitionDelay: `${i * 0.08}s`,
-                }}
-              >
-                <Database className="mx-auto mb-3 h-6 w-6 text-[oklch(0.82_0.16_200)]" />
-                <div className="font-display text-2xl font-bold text-gradient">{l.native}</div>
-                <div className="mt-1 font-display font-semibold">{l.lang}</div>
-                <div className="mt-2 text-xs text-muted-foreground">{l.count} articles</div>
-              </div>
-            ))}
+          <div className="reveal mt-14 card-pro relative overflow-hidden p-10 text-center md:p-14">
+            <div className="absolute inset-0 -z-10 opacity-60" style={{ background: "radial-gradient(ellipse at top, oklch(0.30 0.08 220 / 0.35), transparent 65%)" }} />
+            <div className="mx-auto mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg border border-white/15 bg-white/5">
+              <FileText className="h-5 w-5 text-[oklch(0.78_0.12_215)]" />
+            </div>
+            <h3 className="font-display text-2xl font-semibold md:text-3xl">
+              Dataset and annotation guidelines will be released soon.
+            </h3>
+            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              A curated multilingual corpus of Indian news articles with entity-level viewpoint
+              annotations. Please refer to the Important Dates section for release timelines.
+            </p>
+            <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs text-muted-foreground">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.78_0.12_215)]" />
+              Coming soon — Q1 2026
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Use Cases */}
-      <section id="usecases" className="section relative z-10">
+      {/* Example Outputs */}
+      <section id="examples" className="section relative z-10">
         <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Applications" title="Use Cases" />
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {[
-              { icon: Scale, title: "Media Bias Detection", desc: "Quantify systematic positive/negative framing across outlets and over time, per entity.", color: "oklch(0.82 0.16 200)" },
-              { icon: Megaphone, title: "Political Narrative Analysis", desc: "Trace how parties, coalitions, and movements are positioned across competing media narratives.", color: "oklch(0.72 0.25 340)" },
-              { icon: BookOpen, title: "Computational Journalism", desc: "Tooling for fact-checkers and editors to audit entity-level coverage at scale.", color: "oklch(0.78 0.18 160)" },
-              { icon: Filter, title: "Balanced News Recommendation", desc: "Diversify feeds by surfacing articles with opposing viewpoints on the same entity.", color: "oklch(0.65 0.25 300)" },
-              { icon: Layers, title: "Long-Context NLP", desc: "Drive research in document-length reasoning, multi-entity attribution, and coreference.", color: "oklch(0.78 0.18 220)" },
-              { icon: Activity, title: "Public Opinion Tracking", desc: "Monitor how entity sentiment shifts across regions, languages, and news cycles.", color: "oklch(0.72 0.25 30)" },
-            ].map((u, i) => (
-              <div key={u.title} className="reveal glass glow-card usecase p-7" style={{ transitionDelay: `${i * 0.07}s` }}>
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl"
-                  style={{ background: `linear-gradient(135deg, ${u.color}, oklch(0.55 0.25 290))`, boxShadow: `0 8px 30px ${u.color}` }}>
-                  <u.icon className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="heading-hover font-display text-lg font-bold">{u.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">Hover to learn more.</p>
-                <div className="uc-detail">
-                  <p>{u.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className="reveal text-center">
+            <span className="eyebrow">Examples</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Example Outputs</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-muted-foreground">
+              Illustrative entity-level annotations expected from participating systems.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* Metrics */}
-      <section id="metrics" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Evaluation" title="Metrics" />
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
             {[
-              { name: "Precision", desc: "Fraction of predicted entity–opinion pairs that are correct.", icon: Target },
-              { name: "Recall", desc: "Fraction of true entity–opinion pairs successfully retrieved.", icon: Eye },
-              { name: "F1 Score", desc: "Harmonic mean of precision and recall per label.", icon: Zap },
-              { name: "Macro F1", desc: "Unweighted mean F1 across all polarity classes.", icon: BarChart3 },
-              { name: "MAE", desc: "Mean absolute error on continuous intensity scores.", icon: Gauge },
-              { name: "BERTScore", desc: "Semantic similarity between predicted and gold opinion spans.", icon: Brain },
-            ].map((m, i) => (
-              <div key={m.name} className="reveal glass glow-card p-7" style={{ transitionDelay: `${i * 0.08}s` }}>
-                <div className="flex items-start justify-between">
-                  <div className="text-gradient font-display text-4xl font-bold">0{i + 1}</div>
-                  <m.icon className="h-5 w-5 text-[oklch(0.82_0.16_200)]" />
+              {
+                num: "Example 1",
+                entity: "Government",
+                opinion: "Major infrastructure development plan improving connectivity.",
+                polarity: "Positive",
+                cls: "pill-positive",
+                intensity: 8,
+              },
+              {
+                num: "Example 2",
+                entity: "Opposition",
+                opinion: "Criticized the plan as unrealistic and poorly implemented.",
+                polarity: "Negative",
+                cls: "pill-negative",
+                intensity: 9,
+              },
+            ].map((ex, i) => (
+              <div key={ex.num} className="reveal card-pro p-8" style={{ transitionDelay: `${i * 0.08}s` }}>
+                <div className="mb-6 flex items-center justify-between">
+                  <span className="font-mono text-xs tracking-widest text-muted-foreground">{ex.num.toUpperCase()}</span>
+                  <span className={`pill ${ex.cls}`}>{ex.polarity}</span>
                 </div>
-                <h3 className="heading-hover mt-3 font-display text-xl font-bold">{m.name}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{m.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Dates — horizontal timeline */}
-      <section id="dates" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Schedule" title="Important Dates" />
-          <div className="reveal mt-12 h-timeline">
-            {[
-              { date: "Feb 15, 2026", title: "Training Data Release", desc: "Annotated multilingual training corpus published." },
-              { date: "Mar 20, 2026", title: "Development Release", desc: "Dev set released for tuning and validation." },
-              { date: "May 10, 2026", title: "Test Release", desc: "Blind test set released to all registered teams." },
-              { date: "May 24, 2026", title: "Submission Deadline", desc: "Final system outputs must be submitted." },
-              { date: "Jun 15, 2026", title: "Results Announcement", desc: "Official leaderboards published." },
-              { date: "Sep 12, 2026", title: "VARTA Workshop", desc: "Presentations & awards, co-located with ICON 2026." },
-            ].map((d, i) => (
-              <div key={d.title} className="h-timeline-item">
-                <div className="h-timeline-connector" />
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="timeline-dot" />
-                  <div className="glass glow-card mt-5 w-full p-5 text-center">
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">
-                      <Calendar className="mr-1 inline h-3 w-3" />
-                      {d.date}
+                <Field label="Target Entity" value={ex.entity} mono />
+                <Field label="Opinion" value={ex.opinion} />
+
+                <div className="mt-5 grid grid-cols-2 gap-5 border-t border-white/8 pt-5">
+                  <div>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Polarity</div>
+                    <div className="mt-2 font-display text-base font-semibold">{ex.polarity}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Intensity</div>
+                    <div className="mt-2 flex items-baseline gap-2">
+                      <span className="font-display text-2xl font-semibold text-foreground">{ex.intensity}</span>
+                      <span className="text-xs text-muted-foreground">/ 10</span>
                     </div>
-                    <h3 className="heading-hover mt-2 font-display text-base font-bold">{d.title}</h3>
-                    <p className="mt-2 text-xs text-muted-foreground">{d.desc}</p>
+                    <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+                      <div className="h-full rounded-full bg-[oklch(0.78_0.12_215)]" style={{ width: `${ex.intensity * 10}%` }} />
+                    </div>
                   </div>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Important Dates */}
+      <section id="dates" className="section relative z-10">
+        <div className="mx-auto max-w-4xl">
+          <div className="reveal text-center">
+            <span className="eyebrow">Schedule</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Important Dates</span>
+            </h2>
+          </div>
+
+          <div className="relative mt-16">
+            <div className="timeline-line hidden md:block" />
+            <div className="space-y-8">
+              {[
+                { date: "February 2026", title: "Training Data Release", desc: "Annotated training set made available to registered teams." },
+                { date: "March 2026", title: "Development Data Release", desc: "Development set released for tuning and validation." },
+                { date: "May 2026", title: "Test Data Release", desc: "Blind test set distributed for system evaluation." },
+                { date: "June 2026", title: "Submission Deadline", desc: "Final system outputs and run files due." },
+                { date: "July 2026", title: "Results Announcement", desc: "Official results and leaderboards published." },
+                { date: "September 2026", title: "FIRE 2026 Workshop", desc: "System papers and presentations at the FIRE 2026 venue." },
+              ].map((d, i) => (
+                <div key={d.title} className={`reveal flex flex-col gap-4 md:grid md:grid-cols-2 md:items-center md:gap-10 ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`} style={{ transitionDelay: `${i * 0.05}s` }}>
+                  <div className={`${i % 2 === 1 ? "md:text-left md:pl-10" : "md:text-right md:pr-10"}`}>
+                    <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[oklch(0.78_0.12_215)]">
+                      <Calendar className="mr-1.5 inline h-3 w-3" />
+                      {d.date}
+                    </div>
+                    <h3 className="heading-hover mt-2 font-display text-xl font-semibold">{d.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{d.desc}</p>
+                  </div>
+                  <div className="hidden md:flex md:justify-center">
+                    <div className="timeline-dot" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Previous Events */}
+      <section id="previous" className="section relative z-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="reveal text-center">
+            <span className="eyebrow">Background</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Previous Events & Related Research</span>
+            </h2>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                kind: "Workshop",
+                title: "JEN-AI Workshop 2026",
+                desc: "Joint forum on Journalism, Entities, and News-centric AI — exploring data-driven analysis of media discourse.",
+                meta: "Workshop · 2026",
+              },
+              {
+                kind: "Research",
+                title: "News Has Various Shades: Quantifying and Analyzing Media Bias at Aspect-Level Granularity",
+                desc: "Aspect-level methodology for measuring media bias signals across outlets and political topics.",
+                meta: "Kuila et al.",
+              },
+              {
+                kind: "Research",
+                title: "From Text to Context: An Entailment Approach for News Stakeholder Classification",
+                desc: "Entailment-based classification of stakeholders mentioned in news, addressing entity-centric stance.",
+                meta: "Kuila & Sarkar",
+              },
+            ].map((p, i) => (
+              <article key={p.title} className="reveal card-pro flex flex-col p-7" style={{ transitionDelay: `${i * 0.08}s` }}>
+                <div className="flex items-center gap-2">
+                  <span className="rounded-sm border border-[oklch(0.78_0.12_215)]/40 bg-[oklch(0.78_0.12_215)]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
+                    {p.kind}
+                  </span>
+                </div>
+                <h3 className="heading-hover mt-5 font-display text-lg font-semibold leading-snug">{p.title}</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+                <div className="mt-6 flex items-center justify-between border-t border-white/8 pt-4">
+                  <span className="text-xs text-muted-foreground">{p.meta}</span>
+                  <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                </div>
+              </article>
             ))}
           </div>
         </div>
@@ -399,55 +388,35 @@ function Home() {
       {/* Organizers */}
       <section id="organizers" className="section relative z-10">
         <div className="mx-auto max-w-5xl">
-          <SectionHeader eyebrow="The Team" title="Organizers" />
-          <div className="mt-14 grid gap-8 sm:grid-cols-2">
+          <div className="reveal text-center">
+            <span className="eyebrow">Committee</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Organizers</span>
+            </h2>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
             {[
               {
                 name: "Dr. Alapan Kuila",
                 role: "Assistant Professor",
-                affil: "Indian Institute of Information Technology, Design and Manufacturing Kurnool",
-                focus: "NLP · Opinion Mining · Indian News Analysis",
+                affil: "Indian Institute of Information Technology Design and Manufacturing Kurnool",
               },
               {
                 name: "Dr. Prashant Kapil",
                 role: "Assistant Professor",
                 affil: "Bennett University",
-                focus: "NLP · Computational Social Science",
               },
             ].map((o, i) => (
-              <div key={o.name} className="reveal glass glow-card p-8 text-center" style={{ transitionDelay: `${i * 0.08}s` }}>
-                <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] font-display text-3xl font-bold text-white shadow-[0_0_40px_oklch(0.65_0.25_300/0.5)]">
+              <div key={o.name} className="reveal card-pro flex gap-5 p-7 md:p-8" style={{ transitionDelay: `${i * 0.08}s` }}>
+                <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full border border-white/15 bg-gradient-to-br from-[oklch(0.30_0.06_240)] to-[oklch(0.22_0.04_255)] font-display text-lg font-semibold text-foreground">
                   {o.name.replace("Dr. ", "").split(" ").map((n) => n[0]).join("")}
                 </div>
-                <h3 className="heading-hover font-display text-xl font-bold">{o.name}</h3>
-                <div className="mt-1 text-sm text-[oklch(0.82_0.16_200)]">{o.role}</div>
-                <div className="mt-2 text-sm text-muted-foreground">{o.affil}</div>
-                <div className="mt-3 text-xs text-muted-foreground/80">{o.focus}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Expected Impact */}
-      <section id="impact" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Looking Ahead" title="Expected Impact" />
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {[
-              { icon: Globe, title: "Multilingual NLP Research", desc: "Advancing entity-level understanding across India's linguistic diversity." },
-              { icon: Scale, title: "Media Bias Detection", desc: "Quantifying systematic framing patterns across outlets and ideologies." },
-              { icon: BookOpen, title: "Computational Journalism", desc: "Tooling for newsrooms, fact-checkers, and editorial audits at scale." },
-              { icon: Layers, title: "Long-Context Reasoning", desc: "Pushing models toward document-level discourse and coreference." },
-              { icon: Brain, title: "Explainable AI for News", desc: "Transparent, attributable opinion extraction grounded in source spans." },
-              { icon: Activity, title: "Public Discourse Studies", desc: "Empirical signals for political science and communication research." },
-            ].map((m, i) => (
-              <div key={m.title} className="reveal glass glow-card p-7" style={{ transitionDelay: `${i * 0.07}s` }}>
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] shadow-[0_8px_30px_oklch(0.55_0.25_290/0.4)]">
-                  <m.icon className="h-6 w-6 text-white" />
+                <div>
+                  <h3 className="heading-hover font-display text-lg font-semibold">{o.name}</h3>
+                  <div className="mt-1 text-sm text-[oklch(0.82_0.10_215)]">{o.role}</div>
+                  <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{o.affil}</div>
                 </div>
-                <h3 className="heading-hover font-display text-lg font-bold">{m.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.desc}</p>
               </div>
             ))}
           </div>
@@ -457,16 +426,37 @@ function Home() {
       {/* FAQ */}
       <section id="faq" className="section relative z-10">
         <div className="mx-auto max-w-3xl">
-          <SectionHeader eyebrow="Questions" title="FAQ" />
-          <div className="mt-14 space-y-4">
+          <div className="reveal text-center">
+            <span className="eyebrow">FAQ</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Frequently Asked Questions</span>
+            </h2>
+          </div>
+
+          <div className="mt-14 space-y-3">
             {[
-              { q: "What is VARTA 2026?", a: "VARTA 2026 — Viewpoint Analysis and Representation of Targeted Actors in Indian News — is a shared task at FIRE 2026 focused on entity-centric opinion, polarity, and intensity analysis in multilingual Indian news." },
-              { q: "Who can participate?", a: "Researchers, students, and industry teams worldwide are welcome. Each team may submit multiple systems across the available subtasks and language tracks." },
-              { q: "What is the main task?", a: "Given a news article, systems must identify the targeted actors (politicians, parties, institutions, stakeholders) and extract the viewpoint expressed toward each — including opinion span, polarity, and intensity." },
-              { q: "What languages are supported?", a: "VARTA covers major Indian languages including English, Hindi, Telugu, Tamil, and Bengali. Teams may participate in any subset of languages." },
-              { q: "When will the dataset be released?", a: "Training data is released in February 2026, development data in March, and the blind test set in May 2026. See the Important Dates section for the full schedule." },
+              {
+                q: "What is VARTA 2026?",
+                a: "VARTA 2026 (Viewpoint Analysis and Representation of Targeted Actors in Indian News) is a shared task at FIRE 2026 focused on entity-level opinion, polarity, and intensity analysis in multilingual Indian news articles.",
+              },
+              {
+                q: "Who can participate?",
+                a: "Researchers, students, and industry teams worldwide are welcome. There is no restriction on team size, and each team may submit multiple systems across the available language tracks.",
+              },
+              {
+                q: "What is the main task?",
+                a: "Given a news article, systems must identify the targeted actors (politicians, parties, institutions, stakeholders) and extract the viewpoint expressed toward each — including opinion span, polarity, and intensity.",
+              },
+              {
+                q: "What languages are supported?",
+                a: "VARTA covers English, Hindi, Bengali, and Telugu. Teams may participate in any subset of the supported languages. Additional languages may be added based on availability.",
+              },
+              {
+                q: "When will the dataset be released?",
+                a: "Training data is scheduled for release in February 2026, development data in March 2026, and the blind test set in May 2026. Please see the Important Dates section for the full schedule.",
+              },
             ].map((f, i) => (
-              <details key={i} className="faq-item reveal" style={{ transitionDelay: `${i * 0.05}s` }}>
+              <details key={i} className="faq-item reveal" style={{ transitionDelay: `${i * 0.04}s` }}>
                 <summary>{f.q}</summary>
                 <p>{f.a}</p>
               </details>
@@ -475,109 +465,99 @@ function Home() {
         </div>
       </section>
 
-      {/* References */}
-      <section id="references" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Further Reading" title="References" />
-          <div className="mt-14 grid gap-4 md:grid-cols-2">
-            {[
-              { title: "Media Bias in Presidential Elections", authors: "D'Alessio & Allen" },
-              { title: "News Framing Research", authors: "De Vreese et al." },
-              { title: "News Has Various Shades", authors: "Kuila et al." },
-              { title: "From Text to Context", authors: "Kuila & Sarkar" },
-              { title: "Natural Language Inference in Context", authors: "Liu et al." },
-              { title: "FAIR Guiding Principles", authors: "Wilkinson et al." },
-              { title: "BERTScore", authors: "Zhang et al." },
-              { title: "Implicit Sentiment Analysis", authors: "Zhou et al." },
-            ].map((r, i) => (
-              <div key={r.title} className="reveal glass glow-card flex items-start gap-4 p-5" style={{ transitionDelay: `${i * 0.05}s` }}>
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)]">
-                  <BookOpen className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="heading-hover font-display text-base font-bold leading-snug">{r.title}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{r.authors}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Contact */}
       <section id="contact" className="section relative z-10">
-        <div className="mx-auto max-w-4xl">
-          <div className="reveal-zoom glass-strong relative overflow-hidden p-10 text-center md:p-16">
-            <div className="pointer-events-none absolute inset-0 -z-10 opacity-50" style={{ background: "var(--gradient-radial)" }} />
-            <Mail className="mx-auto mb-5 h-10 w-10 text-[oklch(0.82_0.16_200)]" />
-            <h2 className="heading-hover font-display text-4xl font-bold md:text-5xl">
-              <span className="text-gradient">Join VARTA 2026</span>
+        <div className="mx-auto max-w-5xl">
+          <div className="reveal text-center">
+            <span className="eyebrow">Contact</span>
+            <h2 className="font-display text-4xl font-semibold md:text-5xl">
+              <span className="heading-hover">Get in Touch</span>
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-              Be part of a new generation of NLP research focused on the world's most linguistically diverse media ecosystem.
+            <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
+              For questions about participation, data, or the shared task, contact the organizers.
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <a href="mailto:varta2026@iiit.ac.in" className="btn-primary">
-                <Mail className="h-4 w-4" />
-                <span>varta2026@iiit.ac.in</span>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            <div className="reveal card-pro p-8">
+              <div className="flex items-center gap-3">
+                <Mail className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Email</span>
+              </div>
+              <a href="mailto:varta2026@gmail.com" className="link-underline mt-3 inline-block font-display text-lg font-semibold">
+                varta2026@gmail.com
               </a>
-              <a href="#" className="btn-ghost">
-                <Users className="h-4 w-4" /> Mailing List
-              </a>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                General inquiries, registration, and data requests.
+              </p>
+            </div>
+
+            <div className="reveal card-pro p-8" style={{ transitionDelay: "0.08s" }}>
+              <div className="flex items-center gap-3">
+                <MapPin className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Venue</span>
+              </div>
+              <div className="mt-3 font-display text-lg font-semibold">FIRE 2026 Workshop</div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Forum for Information Retrieval Evaluation, September 2026.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/10 px-6 py-14">
+      <footer className="relative z-10 border-t border-white/8 px-6 py-14">
         <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-4">
           <div>
-            <div className="flex items-center gap-2">
-              <Brain className="h-5 w-5 text-[oklch(0.82_0.16_200)]" />
-              <span className="text-gradient font-display text-lg font-bold">VARTA 2026</span>
-            </div>
-            <p className="mt-3 text-sm text-muted-foreground">
+            <div className="font-display text-base font-semibold">VARTA 2026</div>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Viewpoint Analysis and Representation of Targeted Actors in Indian News.
             </p>
           </div>
           <div>
-            <h4 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">Venue</h4>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground">Event</h4>
             <p className="mt-3 text-sm text-muted-foreground">FIRE 2026 Shared Task</p>
-            <p className="text-sm text-muted-foreground">Forum for Information Retrieval Evaluation</p>
+            <p className="mt-1 text-sm text-muted-foreground">Forum for Information Retrieval Evaluation</p>
           </div>
           <div>
-            <h4 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">Organizers</h4>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground">Organizers</h4>
             <p className="mt-3 text-sm text-muted-foreground">Dr. Alapan Kuila — IIITDM Kurnool</p>
-            <p className="text-sm text-muted-foreground">Dr. Prashant Kapil — Bennett University</p>
+            <p className="mt-1 text-sm text-muted-foreground">Dr. Prashant Kapil — Bennett University</p>
           </div>
           <div>
-            <h4 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">Contact</h4>
-            <a href="mailto:varta2026@iiit.ac.in" className="mt-3 block text-sm text-muted-foreground transition hover:text-foreground">varta2026@iiit.ac.in</a>
-            <div className="mt-4 flex gap-4 text-muted-foreground">
-              <a href="#" className="transition hover:text-foreground"><Github className="h-5 w-5" /></a>
-              <a href="#" className="transition hover:text-foreground"><Twitter className="h-5 w-5" /></a>
-              <a href="#" className="transition hover:text-foreground"><Linkedin className="h-5 w-5" /></a>
-            </div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground">Quick Links</h4>
+            <ul className="mt-3 space-y-1.5 text-sm">
+              {[
+                ["About", "about"],
+                ["Objectives", "objectives"],
+                ["Dataset", "dataset"],
+                ["Dates", "dates"],
+                ["FAQ", "faq"],
+                ["Contact", "contact"],
+              ].map(([l, h]) => (
+                <li key={h}>
+                  <a href={`#${h}`} className="link-underline text-muted-foreground transition hover:text-foreground">{l}</a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <div className="mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6 text-center text-xs text-muted-foreground">
-          © 2026 VARTA Organizing Committee · FIRE 2026 Shared Task
+        <div className="mx-auto mt-12 flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-xs text-muted-foreground md:flex-row">
+          <div>© 2026 VARTA Organizing Committee · FIRE 2026 Shared Task</div>
+          <div>All rights reserved.</div>
         </div>
       </footer>
     </div>
   );
 }
 
-function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
+function Field({ label, value, mono = false }: { label: string; value: string; mono?: boolean }) {
   return (
-    <div className="text-center">
-      <div className="reveal mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">
-        {eyebrow}
-      </div>
-      <h2 className="reveal font-display text-5xl font-bold tracking-tight md:text-6xl">
-        <span className="heading-hover text-gradient">{title}</span>
-      </h2>
+    <div className="mb-4">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{label}</div>
+      <div className={`mt-2 leading-relaxed ${mono ? "font-display text-lg font-semibold" : "text-sm text-foreground/90"}`}>{value}</div>
     </div>
   );
 }
+
