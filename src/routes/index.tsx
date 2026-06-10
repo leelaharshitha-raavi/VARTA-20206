@@ -4,14 +4,15 @@ import { NeuralBackground } from "@/components/NeuralBackground";
 import { CustomCursor, Counter, useReveal } from "@/components/interactions";
 import {
   Newspaper, Target, Eye, Sparkles, Calendar, Mail, Users, Database,
-  BarChart3, ArrowRight, Brain, Globe, Github, Twitter, Linkedin
+  BarChart3, ArrowRight, Brain, Globe, Github, Twitter, Linkedin,
+  Scale, Megaphone, BookOpen, Filter, Layers, Gauge, Activity, Zap, FileText,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "VARTA 2026 — Viewpoint Analysis & Representation of Targeted Actors" },
-      { name: "description", content: "VARTA 2026 — A shared task on detecting target actors and analyzing viewpoints in Indian news, in multiple languages." },
+      { name: "description", content: "VARTA 2026 — A shared task on detecting target actors and analyzing viewpoints in Indian news, across multiple languages." },
       { property: "og:title", content: "VARTA 2026" },
       { property: "og:description", content: "Viewpoint Analysis and Representation of Targeted Actors in Indian News — shared task & research conference 2026." },
     ],
@@ -20,14 +21,24 @@ export const Route = createFileRoute("/")({
 });
 
 const KEYWORDS = [
-  { text: "विचार", x: "8%", y: "20%", size: "4rem", delay: "0s" },
-  { text: "Bias", x: "78%", y: "12%", size: "5rem", delay: "1s" },
-  { text: "Narrative", x: "12%", y: "65%", size: "4.5rem", delay: "2s" },
-  { text: "Actor", x: "82%", y: "70%", size: "5.5rem", delay: "0.5s" },
-  { text: "Sentiment", x: "45%", y: "85%", size: "3.5rem", delay: "1.5s" },
-  { text: "मीडिया", x: "55%", y: "30%", size: "4rem", delay: "2.5s" },
-  { text: "Viewpoint", x: "30%", y: "45%", size: "6rem", delay: "0.8s" },
-  { text: "खबर", x: "70%", y: "50%", size: "4rem", delay: "1.8s" },
+  { text: "Government", x: "6%", y: "18%", size: "3.6rem", delay: "0s" },
+  { text: "Opposition", x: "78%", y: "10%", size: "3.8rem", delay: "1s" },
+  { text: "Narrative", x: "10%", y: "62%", size: "4rem", delay: "2s" },
+  { text: "Entity", x: "82%", y: "68%", size: "4.2rem", delay: "0.5s" },
+  { text: "Sentiment", x: "44%", y: "84%", size: "3.4rem", delay: "1.5s" },
+  { text: "मीडिया", x: "55%", y: "28%", size: "3.8rem", delay: "2.5s" },
+  { text: "Viewpoint", x: "28%", y: "44%", size: "5rem", delay: "0.8s" },
+  { text: "Bias", x: "68%", y: "48%", size: "4rem", delay: "1.8s" },
+  { text: "Opinion", x: "20%", y: "80%", size: "3.4rem", delay: "0.3s" },
+  { text: "News", x: "88%", y: "32%", size: "3.4rem", delay: "1.2s" },
+];
+
+const NEWS_SNIPPETS = [
+  { t: "“Opposition slams policy rollout…”", x: "12%", y: "32%" },
+  { t: "“Government announces reforms…”", x: "72%", y: "22%" },
+  { t: "“Critics question minister's stance”", x: "18%", y: "72%" },
+  { t: "“Media coverage divides nation”", x: "76%", y: "78%" },
+  { t: "“Party leader defends position”", x: "48%", y: "16%" },
 ];
 
 function Home() {
@@ -65,6 +76,20 @@ function Home() {
             {k.text}
           </div>
         ))}
+        {NEWS_SNIPPETS.map((n, i) => (
+          <div
+            key={i}
+            className="news-snippet"
+            style={{
+              left: n.x,
+              top: n.y,
+              animation: `${i % 2 ? "float-slower" : "float-slow"} ${14 + i * 2}s ease-in-out infinite`,
+              animationDelay: `${i * 0.7}s`,
+            }}
+          >
+            {n.t}
+          </div>
+        ))}
       </div>
 
       {/* Nav */}
@@ -76,7 +101,7 @@ function Home() {
             <span className="text-xs text-muted-foreground">2026</span>
           </a>
           <div className="hidden gap-6 text-sm font-medium md:flex">
-            {["About", "Workflow", "Dataset", "Metrics", "Dates", "FAQ"].map((l) => (
+            {["About", "Problem", "Workflow", "Dataset", "Metrics", "Dates", "FAQ"].map((l) => (
               <a key={l} href={`#${l.toLowerCase()}`} className="text-muted-foreground transition hover:text-foreground">
                 {l}
               </a>
@@ -118,7 +143,7 @@ function Home() {
           </p>
 
           <p className="reveal mx-auto mt-4 max-w-2xl text-sm text-muted-foreground/80 md:text-base" style={{ transitionDelay: "1s" }}>
-            A multilingual shared task uncovering how Indian news represents actors — across viewpoints, narratives, and bias — powered by modern NLP.
+            A multilingual shared task uncovering how Indian news represents entities — across viewpoints, narratives, polarities, and intensities.
           </p>
 
           <div className="reveal mt-10 flex flex-wrap items-center justify-center gap-4" style={{ transitionDelay: "1.2s" }}>
@@ -131,9 +156,9 @@ function Home() {
           {/* Stats */}
           <div className="reveal mt-20 grid grid-cols-2 gap-4 md:grid-cols-4" style={{ transitionDelay: "1.4s" }}>
             {[
-              { v: 12, s: "+", l: "Indian Languages" },
+              { v: 5, s: "", l: "Indian Languages" },
               { v: 50000, s: "+", l: "News Articles" },
-              { v: 3, s: "", l: "Subtasks" },
+              { v: 6, s: "", l: "Eval Metrics" },
               { v: 25, s: "+", l: "Participating Teams" },
             ].map((s) => (
               <div key={s.l} className="glass p-5">
@@ -156,14 +181,14 @@ function Home() {
               <Newspaper className="mb-5 h-9 w-9 text-[oklch(0.82_0.16_200)]" />
               <h3 className="heading-hover font-display text-2xl font-bold">The Mission</h3>
               <p className="mt-4 leading-relaxed text-muted-foreground">
-                Indian news is a rich, multilingual landscape where political actors, institutions, and movements are framed through countless competing viewpoints. VARTA challenges researchers to build systems that <span className="text-foreground">identify targeted actors</span> and <span className="text-foreground">decode the viewpoints</span> projected onto them.
+                Indian news is a rich, multilingual landscape where political actors, institutions, and movements are framed through countless competing viewpoints. VARTA challenges researchers to build systems that <span className="text-foreground">identify targeted entities</span> and <span className="text-foreground">decode the viewpoints</span> projected onto them.
               </p>
             </div>
             <div className="reveal-right glass glow-card p-8 md:p-10">
               <Globe className="mb-5 h-9 w-9 text-[oklch(0.72_0.25_340)]" />
               <h3 className="heading-hover font-display text-2xl font-bold">Why It Matters</h3>
               <p className="mt-4 leading-relaxed text-muted-foreground">
-                In a media ecosystem reaching 500M+ readers in over a dozen languages, understanding <span className="text-foreground">how actors are represented</span> is essential for media literacy, bias research, and trustworthy AI for the Global South.
+                In a media ecosystem reaching 500M+ readers in over a dozen languages, understanding <span className="text-foreground">how entities are represented</span> is essential for media literacy, bias research, and trustworthy AI for the Global South.
               </p>
             </div>
           </div>
@@ -172,20 +197,31 @@ function Home() {
 
       {/* Problem */}
       <section id="problem" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Problem Statement" title="The Challenge" />
-          <div className="reveal mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mx-auto max-w-5xl">
+          <SectionHeader eyebrow="Problem Statement" title="Why It's Hard" />
+          <p className="reveal mx-auto mt-6 max-w-2xl text-center text-muted-foreground">
+            Traditional document-level sentiment fails on news. Articles are long, multi-entity, and packed with conflicting opinions. Polarity must be grounded to <span className="text-foreground">whom</span>, not the document.
+          </p>
+
+          <div className="mt-14 grid gap-3">
             {[
-              { icon: Target, title: "Target Actor Detection", desc: "Identify named or implicit actors — politicians, parties, organizations — being discussed in a news article." },
-              { icon: Eye, title: "Viewpoint Analysis", desc: "Classify the stance, sentiment, and framing the article applies to each detected actor." },
-              { icon: BarChart3, title: "Representation Output", desc: "Produce a structured, interpretable representation: who, in what light, with what intensity." },
-            ].map((c, i) => (
-              <div key={c.title} className="glass glow-card p-7" style={{ transitionDelay: `${i * 0.1}s` }}>
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] shadow-[0_8px_30px_oklch(0.55_0.25_290/0.4)]">
-                  <c.icon className="h-6 w-6 text-white" />
+              { icon: FileText, title: "Long Articles", desc: "Thousands of tokens spanning multiple narratives and quoted sources." },
+              { icon: Users, title: "Multiple Entities", desc: "Politicians, parties, institutions and movements all referenced in one piece." },
+              { icon: Layers, title: "Mixed Opinions", desc: "A single article praises one actor, criticises another, stays neutral on a third." },
+              { icon: Filter, title: "Distributed Context", desc: "Stance signals scatter across paragraphs — coreference and discourse cues matter." },
+              { icon: Target, title: "Need for Entity-Level Analysis", desc: "Each opinion must be bound to its specific target with polarity and intensity." },
+            ].map((s, i, arr) => (
+              <div key={s.title} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
+                <div className="cascade-step">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] shadow-[0_8px_30px_oklch(0.55_0.25_290/0.4)]">
+                    <s.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="heading-hover font-display text-lg font-bold">{s.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
+                  </div>
                 </div>
-                <h3 className="heading-hover font-display text-xl font-bold">{c.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.desc}</p>
+                {i < arr.length - 1 && <div className="cascade-arrow" />}
               </div>
             ))}
           </div>
@@ -197,29 +233,41 @@ function Home() {
         <div className="mx-auto max-w-6xl">
           <SectionHeader eyebrow="Pipeline" title="Visual Workflow" />
           <div className="reveal-zoom mt-16 glass-strong p-8 md:p-12">
-            <div className="flex flex-col items-stretch gap-6 md:flex-row md:items-center">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-6">
               {[
                 { icon: Newspaper, label: "News Article", sub: "Multilingual input" },
-                { icon: Target, label: "Target Actor Detection", sub: "NER + grounding" },
-                { icon: Eye, label: "Viewpoint Analysis", sub: "Stance & framing" },
-                { icon: BarChart3, label: "Representation Output", sub: "Structured signal" },
-              ].map((s, i, arr) => (
-                <div key={s.label} className="flex flex-1 items-center gap-4 md:flex-col md:gap-3">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="pulse-glow flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[oklch(0.25_0.08_290)] to-[oklch(0.18_0.05_280)] ring-1 ring-white/10">
-                      <s.icon className="h-8 w-8 text-[oklch(0.82_0.16_200)]" />
-                    </div>
-                    <div className="mt-3 font-display font-semibold">{s.label}</div>
-                    <div className="text-xs text-muted-foreground">{s.sub}</div>
+                { icon: Target, label: "Entity Detection", sub: "Targets in text" },
+                { icon: Eye, label: "Opinion Extraction", sub: "Spans & cues" },
+                { icon: Scale, label: "Polarity Analysis", sub: "Pos / Neu / Neg" },
+                { icon: Gauge, label: "Intensity Scoring", sub: "Strength of stance" },
+                { icon: BarChart3, label: "Structured Output", sub: "Per-entity record" },
+              ].map((s) => (
+                <div key={s.label} className="flex flex-col items-center text-center">
+                  <div className="pulse-glow flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[oklch(0.25_0.08_290)] to-[oklch(0.18_0.05_280)] ring-1 ring-white/10">
+                    <s.icon className="h-7 w-7 text-[oklch(0.82_0.16_200)]" />
                   </div>
-                  {i < arr.length - 1 && (
-                    <div className="hidden flex-1 md:block">
-                      <div className="flow-arrow" />
-                    </div>
-                  )}
-                  {i < arr.length - 1 && (
-                    <div className="block h-8 w-px self-center bg-gradient-to-b from-[oklch(0.65_0.25_300)] to-[oklch(0.82_0.16_200)] md:hidden" />
-                  )}
+                  <div className="mt-3 font-display text-sm font-semibold">{s.label}</div>
+                  <div className="text-[11px] text-muted-foreground">{s.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Example output */}
+          <div className="mt-12">
+            <div className="reveal mb-6 text-center text-xs font-semibold uppercase tracking-[0.25em] text-[oklch(0.82_0.16_200)]">
+              Example Output
+            </div>
+            <div className="grid gap-4 md:grid-cols-4">
+              {[
+                { label: "Target Entity", value: "Finance Minister", color: "oklch(0.82 0.16 200)" },
+                { label: "Opinion", value: "“praised the budget rollout”", color: "oklch(0.72 0.25 340)" },
+                { label: "Polarity", value: "Positive", color: "oklch(0.78 0.18 160)" },
+                { label: "Intensity", value: "0.82", color: "oklch(0.65 0.25 300)" },
+              ].map((c, i) => (
+                <div key={c.label} className="reveal glass glow-card p-5" style={{ transitionDelay: `${i * 0.08}s` }}>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: c.color }}>{c.label}</div>
+                  <div className="mt-2 font-display text-lg font-bold">{c.value}</div>
                 </div>
               ))}
             </div>
@@ -232,27 +280,57 @@ function Home() {
         <div className="mx-auto max-w-6xl">
           <SectionHeader eyebrow="Dataset" title="VARTA-Corpus" />
           <p className="reveal mx-auto mt-6 max-w-2xl text-center text-muted-foreground">
-            Curated articles from leading Indian outlets, annotated for actors and viewpoints across twelve languages.
+            Curated articles from leading Indian outlets, annotated for entities and viewpoints across five major languages.
           </p>
 
-          <div className="reveal mt-14 grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="reveal mt-14 grid grid-cols-2 gap-5 md:grid-cols-5">
             {[
-              "Hindi", "English", "Tamil", "Telugu",
-              "Bengali", "Marathi", "Kannada", "Malayalam",
-              "Gujarati", "Punjabi", "Urdu", "Odia",
-            ].map((lang, i) => (
+              { lang: "English", native: "English", count: "12k" },
+              { lang: "Hindi", native: "हिन्दी", count: "10k" },
+              { lang: "Telugu", native: "తెలుగు", count: "8k" },
+              { lang: "Tamil", native: "தமிழ்", count: "8k" },
+              { lang: "Bengali", native: "বাংলা", count: "7k" },
+            ].map((l, i) => (
               <div
-                key={lang}
-                className="glass glow-card relative overflow-hidden p-5 text-center"
+                key={l.lang}
+                className="glass glow-card orbit-card relative overflow-hidden p-6 text-center"
                 style={{
-                  transform: `translateY(${Math.sin(i) * 8}px)`,
-                  transitionDelay: `${i * 0.05}s`,
+                  animationDelay: `${i * 0.4}s`,
+                  transitionDelay: `${i * 0.08}s`,
                 }}
               >
-                <Database className="mx-auto mb-2 h-5 w-5 text-[oklch(0.82_0.16_200)]" />
-                <div className="font-display font-bold">{lang}</div>
-                <div className="mt-1 text-xs text-muted-foreground">
-                  {(2 + (i % 4)).toFixed(1)}k articles
+                <Database className="mx-auto mb-3 h-6 w-6 text-[oklch(0.82_0.16_200)]" />
+                <div className="font-display text-2xl font-bold text-gradient">{l.native}</div>
+                <div className="mt-1 font-display font-semibold">{l.lang}</div>
+                <div className="mt-2 text-xs text-muted-foreground">{l.count} articles</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases */}
+      <section id="usecases" className="section relative z-10">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeader eyebrow="Applications" title="Use Cases" />
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
+            {[
+              { icon: Scale, title: "Media Bias Detection", desc: "Quantify systematic positive/negative framing across outlets and over time, per entity.", color: "oklch(0.82 0.16 200)" },
+              { icon: Megaphone, title: "Political Narrative Analysis", desc: "Trace how parties, coalitions, and movements are positioned across competing media narratives.", color: "oklch(0.72 0.25 340)" },
+              { icon: BookOpen, title: "Computational Journalism", desc: "Tooling for fact-checkers and editors to audit entity-level coverage at scale.", color: "oklch(0.78 0.18 160)" },
+              { icon: Filter, title: "Balanced News Recommendation", desc: "Diversify feeds by surfacing articles with opposing viewpoints on the same entity.", color: "oklch(0.65 0.25 300)" },
+              { icon: Layers, title: "Long-Context NLP", desc: "Drive research in document-length reasoning, multi-entity attribution, and coreference.", color: "oklch(0.78 0.18 220)" },
+              { icon: Activity, title: "Public Opinion Tracking", desc: "Monitor how entity sentiment shifts across regions, languages, and news cycles.", color: "oklch(0.72 0.25 30)" },
+            ].map((u, i) => (
+              <div key={u.title} className="reveal glass glow-card usecase p-7" style={{ transitionDelay: `${i * 0.07}s` }}>
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl"
+                  style={{ background: `linear-gradient(135deg, ${u.color}, oklch(0.55 0.25 290))`, boxShadow: `0 8px 30px ${u.color}` }}>
+                  <u.icon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="heading-hover font-display text-lg font-bold">{u.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">Hover to learn more.</p>
+                <div className="uc-detail">
+                  <p>{u.desc}</p>
                 </div>
               </div>
             ))}
@@ -264,14 +342,20 @@ function Home() {
       <section id="metrics" className="section relative z-10">
         <div className="mx-auto max-w-6xl">
           <SectionHeader eyebrow="Evaluation" title="Metrics" />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
             {[
-              { name: "Macro F1", desc: "Balanced performance across target actor categories and viewpoint labels." },
-              { name: "Span-Level IoU", desc: "Token overlap for accurately localizing actor spans within news text." },
-              { name: "Viewpoint Accuracy", desc: "Correct classification of stance and framing per detected actor." },
+              { name: "Precision", desc: "Fraction of predicted entity–opinion pairs that are correct.", icon: Target },
+              { name: "Recall", desc: "Fraction of true entity–opinion pairs successfully retrieved.", icon: Eye },
+              { name: "F1 Score", desc: "Harmonic mean of precision and recall per label.", icon: Zap },
+              { name: "Macro F1", desc: "Unweighted mean F1 across all polarity classes.", icon: BarChart3 },
+              { name: "MAE", desc: "Mean absolute error on continuous intensity scores.", icon: Gauge },
+              { name: "BERTScore", desc: "Semantic similarity between predicted and gold opinion spans.", icon: Brain },
             ].map((m, i) => (
-              <div key={m.name} className="reveal glass glow-card p-7" style={{ transitionDelay: `${i * 0.1}s` }}>
-                <div className="text-gradient font-display text-5xl font-bold">0{i + 1}</div>
+              <div key={m.name} className="reveal glass glow-card p-7" style={{ transitionDelay: `${i * 0.08}s` }}>
+                <div className="flex items-start justify-between">
+                  <div className="text-gradient font-display text-4xl font-bold">0{i + 1}</div>
+                  <m.icon className="h-5 w-5 text-[oklch(0.82_0.16_200)]" />
+                </div>
                 <h3 className="heading-hover mt-3 font-display text-xl font-bold">{m.name}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{m.desc}</p>
               </div>
@@ -280,32 +364,31 @@ function Home() {
         </div>
       </section>
 
-      {/* Dates */}
+      {/* Dates — horizontal timeline */}
       <section id="dates" className="section relative z-10">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-6xl">
           <SectionHeader eyebrow="Schedule" title="Important Dates" />
-          <div className="relative mt-16">
-            <div className="absolute left-[7px] top-0 bottom-0 w-px bg-gradient-to-b from-[oklch(0.65_0.25_300)] via-[oklch(0.82_0.16_200)] to-transparent md:left-1/2" />
+          <div className="reveal mt-12 h-timeline">
             {[
-              { date: "Feb 15, 2026", title: "Registration Opens", desc: "Teams may register and receive trial data." },
-              { date: "Mar 10, 2026", title: "Training Data Released", desc: "Full multilingual training corpus published." },
-              { date: "May 20, 2026", title: "Test Phase Begins", desc: "Blind test set released; 2 weeks to submit." },
-              { date: "Jun 05, 2026", title: "System Description Due", desc: "Submit your paper detailing your approach." },
-              { date: "Sep 12, 2026", title: "VARTA Workshop", desc: "Co-located with ICON 2026 — presentations & awards." },
+              { date: "Feb 15, 2026", title: "Training Data Release", desc: "Annotated multilingual training corpus published." },
+              { date: "Mar 20, 2026", title: "Development Release", desc: "Dev set released for tuning and validation." },
+              { date: "May 10, 2026", title: "Test Release", desc: "Blind test set released to all registered teams." },
+              { date: "May 24, 2026", title: "Submission Deadline", desc: "Final system outputs must be submitted." },
+              { date: "Jun 15, 2026", title: "Results Announcement", desc: "Official leaderboards published." },
+              { date: "Sep 12, 2026", title: "VARTA Workshop", desc: "Presentations & awards, co-located with ICON 2026." },
             ].map((d, i) => (
-              <div
-                key={d.title}
-                className={`reveal relative mb-10 flex items-start gap-6 md:gap-12 ${i % 2 ? "md:flex-row-reverse md:text-right" : ""}`}
-                style={{ transitionDelay: `${i * 0.08}s` }}
-              >
-                <div className="timeline-dot mt-2 md:absolute md:left-1/2 md:-translate-x-1/2" />
-                <div className="glass glow-card flex-1 p-6 md:max-w-[44%]">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-[oklch(0.82_0.16_200)]">
-                    <Calendar className="mr-1 inline h-3.5 w-3.5" />
-                    {d.date}
+              <div key={d.title} className="h-timeline-item">
+                <div className="h-timeline-connector" />
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="timeline-dot" />
+                  <div className="glass glow-card mt-5 w-full p-5 text-center">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">
+                      <Calendar className="mr-1 inline h-3 w-3" />
+                      {d.date}
+                    </div>
+                    <h3 className="heading-hover mt-2 font-display text-base font-bold">{d.title}</h3>
+                    <p className="mt-2 text-xs text-muted-foreground">{d.desc}</p>
                   </div>
-                  <h3 className="heading-hover mt-2 font-display text-lg font-bold">{d.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{d.desc}</p>
                 </div>
               </div>
             ))}
@@ -325,7 +408,7 @@ function Home() {
               { name: "Prof. Arjun Banerjee", role: "ISI Kolkata", focus: "Computational Social Science" },
             ].map((o, i) => (
               <div key={o.name} className="reveal glass glow-card p-6 text-center" style={{ transitionDelay: `${i * 0.08}s` }}>
-                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] font-display text-2xl font-bold text-white">
+                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] font-display text-2xl font-bold text-white shadow-[0_0_30px_oklch(0.65_0.25_300/0.5)]">
                   {o.name.split(" ").map((n) => n[0]).slice(-2).join("")}
                 </div>
                 <h3 className="heading-hover font-display font-bold">{o.name}</h3>
@@ -344,10 +427,10 @@ function Home() {
           <div className="mt-14 space-y-4">
             {[
               { q: "Who can participate in VARTA 2026?", a: "Researchers, students, and industry teams worldwide are welcome. Each team may submit up to three systems per subtask." },
-              { q: "Is the dataset freely available?", a: "Yes. Training and trial data are released under a research-only license. The test set is released during a fixed evaluation window." },
-              { q: "Do I need to handle all 12 languages?", a: "No. Teams may participate in any subset of languages. Separate leaderboards exist for monolingual and multilingual tracks." },
+              { q: "Is the dataset freely available?", a: "Yes. Training and dev data are released under a research-only license. The test set is released during a fixed evaluation window." },
+              { q: "Do I need to handle all 5 languages?", a: "No. Teams may participate in any subset of languages. Separate leaderboards exist for monolingual and multilingual tracks." },
               { q: "Are LLMs allowed?", a: "Absolutely. Both open-source and proprietary LLMs are permitted. Systems must report all resources, prompts, and finetuning data used." },
-              { q: "How is the final ranking decided?", a: "Subtask-level rankings use Macro F1; an overall leaderboard aggregates rank across subtasks via mean reciprocal rank." },
+              { q: "How is the final ranking decided?", a: "Subtask-level rankings use Macro F1 and MAE; an overall leaderboard aggregates rank across subtasks via mean reciprocal rank." },
             ].map((f, i) => (
               <details key={i} className="faq-item reveal" style={{ transitionDelay: `${i * 0.05}s` }}>
                 <summary>{f.q}</summary>

@@ -362,3 +362,109 @@ details.faq-item p { margin-top: 1rem; color: var(--muted-foreground); line-heig
 .parallax-slow { will-change: transform; }
 
 a, button { cursor: none; }
+
+/* Horizontal timeline */
+.h-timeline {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 2rem 0.5rem 3rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+.h-timeline::-webkit-scrollbar { height: 6px; }
+.h-timeline::-webkit-scrollbar-thumb { background: var(--gradient-text); border-radius: 999px; }
+.h-timeline-item {
+  position: relative;
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
+}
+.h-timeline-item:hover { transform: translateY(-10px) scale(1.04); }
+.h-timeline-connector {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: linear-gradient(90deg, oklch(0.65 0.25 300), oklch(0.82 0.16 200));
+  z-index: 0;
+}
+.h-timeline-item:last-child .h-timeline-connector { display: none; }
+
+/* Problem cascade */
+.cascade-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, oklch(1 0 0 / 0.06), oklch(1 0 0 / 0.02));
+  backdrop-filter: blur(20px);
+  border: 1px solid oklch(1 0 0 / 0.1);
+  transition: all 0.5s;
+}
+.cascade-step:hover {
+  border-color: oklch(0.82 0.16 200 / 0.5);
+  transform: translateX(8px);
+  box-shadow: 0 10px 40px oklch(0.65 0.25 300 / 0.25);
+}
+.cascade-arrow {
+  width: 2px; height: 28px; margin: 0 auto;
+  background: linear-gradient(180deg, oklch(0.65 0.25 300), oklch(0.82 0.16 200));
+  position: relative;
+}
+.cascade-arrow::after {
+  content: "";
+  position: absolute; bottom: -1px; left: 50%;
+  width: 10px; height: 10px;
+  border-bottom: 2px solid oklch(0.82 0.16 200);
+  border-right: 2px solid oklch(0.82 0.16 200);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Use-case flip reveal */
+.usecase {
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+}
+.usecase .uc-detail {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, oklch(0.55 0.25 270 / 0.85), oklch(0.72 0.25 340 / 0.85));
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.2,0.8,0.2,1);
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: white;
+}
+.usecase:hover .uc-detail { opacity: 1; transform: translateY(0); }
+
+/* Orbit dataset cards */
+@keyframes orbit-float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-14px) rotate(1deg); }
+}
+.orbit-card { animation: orbit-float 6s ease-in-out infinite; }
+
+/* Floating news snippet */
+.news-snippet {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: oklch(1 0 0 / 0.18);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid oklch(1 0 0 / 0.1);
+  border-radius: 0.5rem;
+  background: oklch(1 0 0 / 0.02);
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
