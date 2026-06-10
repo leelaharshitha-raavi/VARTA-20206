@@ -561,4 +561,3 @@ function Field({ label, value, mono = false }: { label: string; value: string; m
   );
 }
 
-function _BookOpenUnused() { return <BookOpen />; }
