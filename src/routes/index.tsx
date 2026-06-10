@@ -398,22 +398,56 @@ function Home() {
 
       {/* Organizers */}
       <section id="organizers" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-5xl">
           <SectionHeader eyebrow="The Team" title="Organizers" />
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
+          <div className="mt-14 grid gap-8 sm:grid-cols-2">
             {[
-              { name: "Dr. Aditi Sharma", role: "IIT Delhi", focus: "NLP & Discourse" },
-              { name: "Prof. Ravi Kumar", role: "IIIT Hyderabad", focus: "Indic Languages" },
-              { name: "Dr. Meera Iyer", role: "AI4Bharat", focus: "Multilingual Models" },
-              { name: "Prof. Arjun Banerjee", role: "ISI Kolkata", focus: "Computational Social Science" },
+              {
+                name: "Dr. Alapan Kuila",
+                role: "Assistant Professor",
+                affil: "Indian Institute of Information Technology, Design and Manufacturing Kurnool",
+                focus: "NLP · Opinion Mining · Indian News Analysis",
+              },
+              {
+                name: "Dr. Prashant Kapil",
+                role: "Assistant Professor",
+                affil: "Bennett University",
+                focus: "NLP · Computational Social Science",
+              },
             ].map((o, i) => (
-              <div key={o.name} className="reveal glass glow-card p-6 text-center" style={{ transitionDelay: `${i * 0.08}s` }}>
-                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] font-display text-2xl font-bold text-white shadow-[0_0_30px_oklch(0.65_0.25_300/0.5)]">
-                  {o.name.split(" ").map((n) => n[0]).slice(-2).join("")}
+              <div key={o.name} className="reveal glass glow-card p-8 text-center" style={{ transitionDelay: `${i * 0.08}s` }}>
+                <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] font-display text-3xl font-bold text-white shadow-[0_0_40px_oklch(0.65_0.25_300/0.5)]">
+                  {o.name.replace("Dr. ", "").split(" ").map((n) => n[0]).join("")}
                 </div>
-                <h3 className="heading-hover font-display font-bold">{o.name}</h3>
-                <div className="text-sm text-[oklch(0.82_0.16_200)]">{o.role}</div>
-                <div className="mt-1 text-xs text-muted-foreground">{o.focus}</div>
+                <h3 className="heading-hover font-display text-xl font-bold">{o.name}</h3>
+                <div className="mt-1 text-sm text-[oklch(0.82_0.16_200)]">{o.role}</div>
+                <div className="mt-2 text-sm text-muted-foreground">{o.affil}</div>
+                <div className="mt-3 text-xs text-muted-foreground/80">{o.focus}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Expected Impact */}
+      <section id="impact" className="section relative z-10">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeader eyebrow="Looking Ahead" title="Expected Impact" />
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
+            {[
+              { icon: Globe, title: "Multilingual NLP Research", desc: "Advancing entity-level understanding across India's linguistic diversity." },
+              { icon: Scale, title: "Media Bias Detection", desc: "Quantifying systematic framing patterns across outlets and ideologies." },
+              { icon: BookOpen, title: "Computational Journalism", desc: "Tooling for newsrooms, fact-checkers, and editorial audits at scale." },
+              { icon: Layers, title: "Long-Context Reasoning", desc: "Pushing models toward document-level discourse and coreference." },
+              { icon: Brain, title: "Explainable AI for News", desc: "Transparent, attributable opinion extraction grounded in source spans." },
+              { icon: Activity, title: "Public Discourse Studies", desc: "Empirical signals for political science and communication research." },
+            ].map((m, i) => (
+              <div key={m.title} className="reveal glass glow-card p-7" style={{ transitionDelay: `${i * 0.07}s` }}>
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)] shadow-[0_8px_30px_oklch(0.55_0.25_290/0.4)]">
+                  <m.icon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="heading-hover font-display text-lg font-bold">{m.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.desc}</p>
               </div>
             ))}
           </div>
@@ -426,16 +460,45 @@ function Home() {
           <SectionHeader eyebrow="Questions" title="FAQ" />
           <div className="mt-14 space-y-4">
             {[
-              { q: "Who can participate in VARTA 2026?", a: "Researchers, students, and industry teams worldwide are welcome. Each team may submit up to three systems per subtask." },
-              { q: "Is the dataset freely available?", a: "Yes. Training and dev data are released under a research-only license. The test set is released during a fixed evaluation window." },
-              { q: "Do I need to handle all 5 languages?", a: "No. Teams may participate in any subset of languages. Separate leaderboards exist for monolingual and multilingual tracks." },
-              { q: "Are LLMs allowed?", a: "Absolutely. Both open-source and proprietary LLMs are permitted. Systems must report all resources, prompts, and finetuning data used." },
-              { q: "How is the final ranking decided?", a: "Subtask-level rankings use Macro F1 and MAE; an overall leaderboard aggregates rank across subtasks via mean reciprocal rank." },
+              { q: "What is VARTA 2026?", a: "VARTA 2026 — Viewpoint Analysis and Representation of Targeted Actors in Indian News — is a shared task at FIRE 2026 focused on entity-centric opinion, polarity, and intensity analysis in multilingual Indian news." },
+              { q: "Who can participate?", a: "Researchers, students, and industry teams worldwide are welcome. Each team may submit multiple systems across the available subtasks and language tracks." },
+              { q: "What is the main task?", a: "Given a news article, systems must identify the targeted actors (politicians, parties, institutions, stakeholders) and extract the viewpoint expressed toward each — including opinion span, polarity, and intensity." },
+              { q: "What languages are supported?", a: "VARTA covers major Indian languages including English, Hindi, Telugu, Tamil, and Bengali. Teams may participate in any subset of languages." },
+              { q: "When will the dataset be released?", a: "Training data is released in February 2026, development data in March, and the blind test set in May 2026. See the Important Dates section for the full schedule." },
             ].map((f, i) => (
               <details key={i} className="faq-item reveal" style={{ transitionDelay: `${i * 0.05}s` }}>
                 <summary>{f.q}</summary>
                 <p>{f.a}</p>
               </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* References */}
+      <section id="references" className="section relative z-10">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeader eyebrow="Further Reading" title="References" />
+          <div className="mt-14 grid gap-4 md:grid-cols-2">
+            {[
+              { title: "Media Bias in Presidential Elections", authors: "D'Alessio & Allen" },
+              { title: "News Framing Research", authors: "De Vreese et al." },
+              { title: "News Has Various Shades", authors: "Kuila et al." },
+              { title: "From Text to Context", authors: "Kuila & Sarkar" },
+              { title: "Natural Language Inference in Context", authors: "Liu et al." },
+              { title: "FAIR Guiding Principles", authors: "Wilkinson et al." },
+              { title: "BERTScore", authors: "Zhang et al." },
+              { title: "Implicit Sentiment Analysis", authors: "Zhou et al." },
+            ].map((r, i) => (
+              <div key={r.title} className="reveal glass glow-card flex items-start gap-4 p-5" style={{ transitionDelay: `${i * 0.05}s` }}>
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[oklch(0.55_0.25_270)] to-[oklch(0.72_0.25_340)]">
+                  <BookOpen className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="heading-hover font-display text-base font-bold leading-snug">{r.title}</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">{r.authors}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
