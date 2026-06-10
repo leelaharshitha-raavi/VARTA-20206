@@ -3,7 +3,7 @@ import { NeuralBackground } from "@/components/NeuralBackground";
 import { useReveal } from "@/components/interactions";
 import {
   Target, MessageSquare, Scale, Gauge, Eye, Layers,
-  Calendar, Mail, BookOpen, FileText, ArrowRight, ExternalLink, MapPin,
+  Calendar, Mail, FileText, ArrowRight, ExternalLink, MapPin,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
