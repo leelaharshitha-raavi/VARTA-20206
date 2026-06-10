@@ -530,19 +530,39 @@ function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/10 px-6 py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 md:flex-row">
-          <div className="flex items-center gap-2">
-            <Brain className="h-5 w-5 text-[oklch(0.82_0.16_200)]" />
-            <span className="text-gradient font-display font-bold">VARTA 2026</span>
-            <span className="text-xs text-muted-foreground">· Indian News NLP</span>
+      <footer className="relative z-10 border-t border-white/10 px-6 py-14">
+        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <Brain className="h-5 w-5 text-[oklch(0.82_0.16_200)]" />
+              <span className="text-gradient font-display text-lg font-bold">VARTA 2026</span>
+            </div>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Viewpoint Analysis and Representation of Targeted Actors in Indian News.
+            </p>
           </div>
-          <div className="flex gap-4 text-muted-foreground">
-            <a href="#" className="transition hover:text-foreground"><Github className="h-5 w-5" /></a>
-            <a href="#" className="transition hover:text-foreground"><Twitter className="h-5 w-5" /></a>
-            <a href="#" className="transition hover:text-foreground"><Linkedin className="h-5 w-5" /></a>
+          <div>
+            <h4 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">Venue</h4>
+            <p className="mt-3 text-sm text-muted-foreground">FIRE 2026 Shared Task</p>
+            <p className="text-sm text-muted-foreground">Forum for Information Retrieval Evaluation</p>
           </div>
-          <div className="text-xs text-muted-foreground">© 2026 VARTA Organizing Committee</div>
+          <div>
+            <h4 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">Organizers</h4>
+            <p className="mt-3 text-sm text-muted-foreground">Dr. Alapan Kuila — IIITDM Kurnool</p>
+            <p className="text-sm text-muted-foreground">Dr. Prashant Kapil — Bennett University</p>
+          </div>
+          <div>
+            <h4 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-[oklch(0.82_0.16_200)]">Contact</h4>
+            <a href="mailto:varta2026@iiit.ac.in" className="mt-3 block text-sm text-muted-foreground transition hover:text-foreground">varta2026@iiit.ac.in</a>
+            <div className="mt-4 flex gap-4 text-muted-foreground">
+              <a href="#" className="transition hover:text-foreground"><Github className="h-5 w-5" /></a>
+              <a href="#" className="transition hover:text-foreground"><Twitter className="h-5 w-5" /></a>
+              <a href="#" className="transition hover:text-foreground"><Linkedin className="h-5 w-5" /></a>
+            </div>
+          </div>
+        </div>
+        <div className="mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6 text-center text-xs text-muted-foreground">
+          © 2026 VARTA Organizing Committee · FIRE 2026 Shared Task
         </div>
       </footer>
     </div>
