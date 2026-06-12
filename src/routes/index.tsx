@@ -482,6 +482,10 @@ function Home() {
                 q: "When will the dataset be released?",
                 a: "Training data is scheduled for release in February 2026, development data in March 2026, and the blind test set in May 2026. Please see the Important Dates section for the full schedule.",
               },
+              {
+                q: "How can I stay updated about announcements?",
+                a: "All official announcements, dataset releases, and deadline changes are posted on the official VARTA 2026 page (fire-2026-sharedtask.github.io/VARTA). You can also reach the organizers by email to be added to the participants' mailing list.",
+              },
             ].map((f, i) => (
               <details key={i} className="faq-item reveal" style={{ transitionDelay: `${i * 0.04}s` }}>
                 <summary>{f.q}</summary>
