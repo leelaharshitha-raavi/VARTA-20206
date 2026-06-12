@@ -137,27 +137,27 @@ function Home() {
         </div>
       </section>
 
-      {/* Objectives */}
+      {/* Research Focus */}
       <section id="objectives" className="section relative z-10">
         <div className="mx-auto max-w-6xl">
           <div className="reveal text-center">
-            <span className="eyebrow">Objectives</span>
+            <span className="eyebrow">Research Focus</span>
             <h2 className="font-display text-4xl font-semibold md:text-5xl">
-              <span className="heading-hover">Task Objectives</span>
+              <span className="heading-hover">Research Focus Areas</span>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-muted-foreground">
-              Six interconnected objectives spanning entity-level understanding and discourse-level reasoning.
+              Six directions advancing entity-centric understanding of opinions and viewpoints in multilingual news.
             </p>
           </div>
 
           <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { n: "01", icon: Target, title: "Entity Identification", desc: "Detect target actors — politicians, parties, institutions, organizations, and stakeholders — referenced within news articles." },
-              { n: "02", icon: MessageSquare, title: "Opinion Extraction", desc: "Locate spans of text that express opinions, evaluations, or judgements directed at each identified entity." },
-              { n: "03", icon: Scale, title: "Polarity Classification", desc: "Assign each entity–opinion pair a polarity label: positive, negative, or neutral, grounded in textual evidence." },
-              { n: "04", icon: Gauge, title: "Intensity Prediction", desc: "Estimate the strength of the expressed opinion on a graded scale, capturing nuanced stance." },
-              { n: "05", icon: Eye, title: "Media Bias Analysis", desc: "Reveal systematic framing patterns across outlets, languages, and regions through entity-centric signals." },
-              { n: "06", icon: Layers, title: "Long Context Understanding", desc: "Reason across paragraphs, coreference chains, and multi-entity discourse rather than isolated sentences." },
+              { n: "01", icon: Target, title: "Entity-Centric Analysis", desc: "Understanding how important actors are represented within news articles." },
+              { n: "02", icon: MessageSquare, title: "Opinion Understanding", desc: "Analyzing viewpoints and perspectives expressed toward entities." },
+              { n: "03", icon: Scale, title: "Sentiment & Polarity", desc: "Investigating positive, negative, and factual portrayals of targeted actors." },
+              { n: "04", icon: Gauge, title: "Intensity Assessment", desc: "Exploring the strength and impact of expressed viewpoints on a graded scale." },
+              { n: "05", icon: Eye, title: "Media Representation", desc: "Studying how entities are framed across different news sources and outlets." },
+              { n: "06", icon: Layers, title: "Long-Context Reasoning", desc: "Understanding opinions distributed across lengthy, multi-paragraph news articles." },
             ].map((o, i) => (
               <div key={o.n} className="reveal card-pro p-7" style={{ transitionDelay: `${i * 0.05}s` }}>
                 <div className="flex items-center justify-between">
