@@ -137,27 +137,27 @@ function Home() {
         </div>
       </section>
 
-      {/* Objectives */}
+      {/* Research Focus */}
       <section id="objectives" className="section relative z-10">
         <div className="mx-auto max-w-6xl">
           <div className="reveal text-center">
-            <span className="eyebrow">Objectives</span>
+            <span className="eyebrow">Research Focus</span>
             <h2 className="font-display text-4xl font-semibold md:text-5xl">
-              <span className="heading-hover">Task Objectives</span>
+              <span className="heading-hover">Research Focus Areas</span>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-muted-foreground">
-              Six interconnected objectives spanning entity-level understanding and discourse-level reasoning.
+              Six directions advancing entity-centric understanding of opinions and viewpoints in multilingual news.
             </p>
           </div>
 
           <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {[
-              { n: "01", icon: Target, title: "Entity Identification", desc: "Detect target actors — politicians, parties, institutions, organizations, and stakeholders — referenced within news articles." },
-              { n: "02", icon: MessageSquare, title: "Opinion Extraction", desc: "Locate spans of text that express opinions, evaluations, or judgements directed at each identified entity." },
-              { n: "03", icon: Scale, title: "Polarity Classification", desc: "Assign each entity–opinion pair a polarity label: positive, negative, or neutral, grounded in textual evidence." },
-              { n: "04", icon: Gauge, title: "Intensity Prediction", desc: "Estimate the strength of the expressed opinion on a graded scale, capturing nuanced stance." },
-              { n: "05", icon: Eye, title: "Media Bias Analysis", desc: "Reveal systematic framing patterns across outlets, languages, and regions through entity-centric signals." },
-              { n: "06", icon: Layers, title: "Long Context Understanding", desc: "Reason across paragraphs, coreference chains, and multi-entity discourse rather than isolated sentences." },
+              { n: "01", icon: Target, title: "Entity-Centric Analysis", desc: "Understanding how important actors are represented within news articles." },
+              { n: "02", icon: MessageSquare, title: "Opinion Understanding", desc: "Analyzing viewpoints and perspectives expressed toward entities." },
+              { n: "03", icon: Scale, title: "Sentiment & Polarity", desc: "Investigating positive, negative, and factual portrayals of targeted actors." },
+              { n: "04", icon: Gauge, title: "Intensity Assessment", desc: "Exploring the strength and impact of expressed viewpoints on a graded scale." },
+              { n: "05", icon: Eye, title: "Media Representation", desc: "Studying how entities are framed across different news sources and outlets." },
+              { n: "06", icon: Layers, title: "Long-Context Reasoning", desc: "Understanding opinions distributed across lengthy, multi-paragraph news articles." },
             ].map((o, i) => (
               <div key={o.n} className="reveal card-pro p-7" style={{ transitionDelay: `${i * 0.05}s` }}>
                 <div className="flex items-center justify-between">
@@ -336,51 +336,78 @@ function Home() {
         </div>
       </section>
 
-      {/* Previous Events */}
+      {/* Previous Events & References */}
       <section id="previous" className="section relative z-10">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-5xl">
           <div className="reveal text-center">
-            <span className="eyebrow">Background</span>
+            <span className="eyebrow">References</span>
             <h2 className="font-display text-4xl font-semibold md:text-5xl">
-              <span className="heading-hover">Previous Events & Related Research</span>
+              <span className="heading-hover">Previous Events & References</span>
             </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-muted-foreground">
+              Official resources for VARTA 2026 and the FIRE evaluation campaign.
+            </p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                kind: "Workshop",
-                title: "JEN-AI Workshop 2026",
-                desc: "Joint forum on Journalism, Entities, and News-centric AI — exploring data-driven analysis of media discourse.",
-                meta: "Workshop · 2026",
-              },
-              {
-                kind: "Research",
-                title: "News Has Various Shades: Quantifying and Analyzing Media Bias at Aspect-Level Granularity",
-                desc: "Aspect-level methodology for measuring media bias signals across outlets and political topics.",
-                meta: "Kuila et al.",
-              },
-              {
-                kind: "Research",
-                title: "From Text to Context: An Entailment Approach for News Stakeholder Classification",
-                desc: "Entailment-based classification of stakeholders mentioned in news, addressing entity-centric stance.",
-                meta: "Kuila & Sarkar",
-              },
-            ].map((p, i) => (
-              <article key={p.title} className="reveal card-pro flex flex-col p-7" style={{ transitionDelay: `${i * 0.08}s` }}>
-                <div className="flex items-center gap-2">
-                  <span className="rounded-sm border border-[oklch(0.78_0.12_215)]/40 bg-[oklch(0.78_0.12_215)]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
-                    {p.kind}
+          <div className="reveal mt-14 card-pro relative overflow-hidden p-8 md:p-12">
+            <div
+              className="absolute inset-0 -z-10 opacity-50"
+              style={{ background: "radial-gradient(ellipse at top right, oklch(0.32 0.08 220 / 0.35), transparent 60%)" }}
+            />
+
+            <div className="grid gap-8 md:grid-cols-2">
+              {[
+                {
+                  label: "Official",
+                  title: "VARTA 2026",
+                  href: "https://fire-2026-sharedtask.github.io/VARTA/",
+                  domain: "fire-2026-sharedtask.github.io",
+                  desc: "Official VARTA 2026 shared task page containing task overview, announcements, participation details, and updates.",
+                },
+                {
+                  label: "Conference",
+                  title: "FIRE 2025",
+                  href: "https://fire.irsi.org.in/fire/2025/home",
+                  domain: "fire.irsi.org.in",
+                  desc: "Official FIRE conference website showcasing shared tasks, workshops, evaluation campaigns, and multilingual NLP research activities.",
+                },
+              ].map((r) => (
+                <a
+                  key={r.title}
+                  href={r.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="group flex flex-col rounded-lg border border-white/10 bg-white/[0.025] p-6 transition hover:-translate-y-1 hover:border-[oklch(0.78_0.12_215)]/40 hover:bg-white/[0.05]"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="rounded-sm border border-[oklch(0.78_0.12_215)]/40 bg-[oklch(0.78_0.12_215)]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
+                      {r.label}
+                    </span>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground transition group-hover:text-[oklch(0.82_0.10_215)]" />
+                  </div>
+                  <h3 className="heading-hover mt-5 font-display text-xl font-semibold">{r.title}</h3>
+                  <div className="mt-1 font-mono text-[11px] text-muted-foreground">{r.domain}</div>
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">{r.desc}</p>
+                  <span className="link-underline mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
+                    Visit Website <ArrowRight className="h-3 w-3" />
                   </span>
-                </div>
-                <h3 className="heading-hover mt-5 font-display text-lg font-semibold leading-snug">{p.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-                <div className="mt-6 flex items-center justify-between border-t border-white/8 pt-4">
-                  <span className="text-xs text-muted-foreground">{p.meta}</span>
-                  <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
-                </div>
-              </article>
-            ))}
+                </a>
+              ))}
+            </div>
+
+            <div className="mt-10 flex flex-col items-start gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">VARTA Status</div>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-foreground/85">
+                  VARTA 2026 marks the inaugural edition of the shared task and introduces a benchmark
+                  for viewpoint analysis and representation of targeted actors in multilingual Indian news.
+                </p>
+              </div>
+              <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-[oklch(0.78_0.12_215)]/40 bg-[oklch(0.78_0.12_215)]/10 px-4 py-1.5 text-xs font-semibold text-[oklch(0.85_0.10_215)]">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.78_0.12_215)]" />
+                Inaugural Edition · 2026
+              </span>
+            </div>
           </div>
         </div>
       </section>
@@ -455,6 +482,10 @@ function Home() {
                 q: "When will the dataset be released?",
                 a: "Training data is scheduled for release in February 2026, development data in March 2026, and the blind test set in May 2026. Please see the Important Dates section for the full schedule.",
               },
+              {
+                q: "How can I stay updated about announcements?",
+                a: "All official announcements, dataset releases, and deadline changes are posted on the official VARTA 2026 page (fire-2026-sharedtask.github.io/VARTA). You can also reach the organizers by email to be added to the participants' mailing list.",
+              },
             ].map((f, i) => (
               <details key={i} className="faq-item reveal" style={{ transitionDelay: `${i * 0.04}s` }}>
                 <summary>{f.q}</summary>
@@ -478,28 +509,40 @@ function Home() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
             <div className="reveal card-pro p-8">
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Email</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Official Communication</span>
               </div>
               <a href="mailto:varta2026@gmail.com" className="link-underline mt-3 inline-block font-display text-lg font-semibold">
                 varta2026@gmail.com
               </a>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                General inquiries, registration, and data requests.
+                Primary point of contact for all official announcements, registration, and data access.
               </p>
             </div>
 
-            <div className="reveal card-pro p-8" style={{ transitionDelay: "0.08s" }}>
+            <div className="reveal card-pro p-8" style={{ transitionDelay: "0.06s" }}>
+              <div className="flex items-center gap-3">
+                <MessageSquare className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Participation Queries</span>
+              </div>
+              <div className="mt-3 font-display text-lg font-semibold">Teams & Submissions</div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Questions about registration, team eligibility, submission format, evaluation tracks,
+                and language selection.
+              </p>
+            </div>
+
+            <div className="reveal card-pro p-8" style={{ transitionDelay: "0.12s" }}>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Venue</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Organizer Information</span>
               </div>
               <div className="mt-3 font-display text-lg font-semibold">FIRE 2026 Workshop</div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Forum for Information Retrieval Evaluation, September 2026.
+                Forum for Information Retrieval Evaluation, September 2026 — venue and dates to be announced.
               </p>
             </div>
           </div>
