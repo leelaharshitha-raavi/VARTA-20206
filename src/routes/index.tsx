@@ -345,7 +345,7 @@ function Home() {
               <span className="heading-hover">Previous Events & References</span>
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-muted-foreground">
-              Official resources for VARTA 2026 and the FIRE evaluation campaign.
+              Official resources for the FIRE evaluation campaign and related events.
             </p>
           </div>
 
@@ -355,58 +355,28 @@ function Home() {
               style={{ background: "radial-gradient(ellipse at top right, oklch(0.32 0.08 220 / 0.35), transparent 60%)" }}
             />
 
-            <div className="grid gap-8 md:grid-cols-2">
-              {[
-                {
-                  label: "Official",
-                  title: "VARTA 2026",
-                  href: "https://fire-2026-sharedtask.github.io/VARTA/",
-                  domain: "fire-2026-sharedtask.github.io",
-                  desc: "Official VARTA 2026 shared task page containing task overview, announcements, participation details, and updates.",
-                },
-                {
-                  label: "Conference",
-                  title: "FIRE 2025",
-                  href: "https://fire.irsi.org.in/fire/2025/home",
-                  domain: "fire.irsi.org.in",
-                  desc: "Official FIRE conference website showcasing shared tasks, workshops, evaluation campaigns, and multilingual NLP research activities.",
-                },
-              ].map((r) => (
-                <a
-                  key={r.title}
-                  href={r.href}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="group flex flex-col rounded-lg border border-white/10 bg-white/[0.025] p-6 transition hover:-translate-y-1 hover:border-[oklch(0.78_0.12_215)]/40 hover:bg-white/[0.05]"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="rounded-sm border border-[oklch(0.78_0.12_215)]/40 bg-[oklch(0.78_0.12_215)]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
-                      {r.label}
-                    </span>
-                    <ExternalLink className="h-4 w-4 text-muted-foreground transition group-hover:text-[oklch(0.82_0.10_215)]" />
-                  </div>
-                  <h3 className="heading-hover mt-5 font-display text-xl font-semibold">{r.title}</h3>
-                  <div className="mt-1 font-mono text-[11px] text-muted-foreground">{r.domain}</div>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">{r.desc}</p>
-                  <span className="link-underline mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
-                    Visit Website <ArrowRight className="h-3 w-3" />
+            <div className="mx-auto max-w-xl">
+              <a
+                href="https://fire.irsi.org.in/fire/2025/home"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="group flex flex-col rounded-lg border border-white/10 bg-white/[0.025] p-6 transition hover:-translate-y-1 hover:border-[oklch(0.78_0.12_215)]/40 hover:bg-white/[0.05]"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="rounded-sm border border-[oklch(0.78_0.12_215)]/40 bg-[oklch(0.78_0.12_215)]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
+                    Conference
                   </span>
-                </a>
-              ))}
-            </div>
-
-            <div className="mt-10 flex flex-col items-start gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
-              <div>
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">VARTA Status</div>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-foreground/85">
-                  VARTA 2026 marks the inaugural edition of the shared task and introduces a benchmark
-                  for viewpoint analysis and representation of targeted actors in multilingual Indian news.
+                  <ExternalLink className="h-4 w-4 text-muted-foreground transition group-hover:text-[oklch(0.82_0.10_215)]" />
+                </div>
+                <h3 className="heading-hover mt-5 font-display text-xl font-semibold">FIRE 2025</h3>
+                <div className="mt-1 font-mono text-[11px] text-muted-foreground">fire.irsi.org.in</div>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  Official FIRE conference website showcasing shared tasks, workshops, evaluation campaigns, and multilingual NLP research activities.
                 </p>
-              </div>
-              <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-[oklch(0.78_0.12_215)]/40 bg-[oklch(0.78_0.12_215)]/10 px-4 py-1.5 text-xs font-semibold text-[oklch(0.85_0.10_215)]">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.78_0.12_215)]" />
-                Inaugural Edition · 2026
-              </span>
+                <span className="link-underline mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
+                  Visit Website <ArrowRight className="h-3 w-3" />
+                </span>
+              </a>
             </div>
           </div>
         </div>
