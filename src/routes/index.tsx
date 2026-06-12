@@ -509,28 +509,40 @@ function Home() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
             <div className="reveal card-pro p-8">
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Email</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Official Communication</span>
               </div>
               <a href="mailto:varta2026@gmail.com" className="link-underline mt-3 inline-block font-display text-lg font-semibold">
                 varta2026@gmail.com
               </a>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                General inquiries, registration, and data requests.
+                Primary point of contact for all official announcements, registration, and data access.
               </p>
             </div>
 
-            <div className="reveal card-pro p-8" style={{ transitionDelay: "0.08s" }}>
+            <div className="reveal card-pro p-8" style={{ transitionDelay: "0.06s" }}>
+              <div className="flex items-center gap-3">
+                <MessageSquare className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Participation Queries</span>
+              </div>
+              <div className="mt-3 font-display text-lg font-semibold">Teams & Submissions</div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Questions about registration, team eligibility, submission format, evaluation tracks,
+                and language selection.
+              </p>
+            </div>
+
+            <div className="reveal card-pro p-8" style={{ transitionDelay: "0.12s" }}>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-[oklch(0.78_0.12_215)]" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Venue</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Organizer Information</span>
               </div>
               <div className="mt-3 font-display text-lg font-semibold">FIRE 2026 Workshop</div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Forum for Information Retrieval Evaluation, September 2026.
+                Forum for Information Retrieval Evaluation, September 2026 — venue and dates to be announced.
               </p>
             </div>
           </div>
