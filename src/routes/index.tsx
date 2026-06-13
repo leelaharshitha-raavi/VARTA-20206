@@ -249,29 +249,60 @@ function Home() {
           <div className="mt-14 grid gap-6 md:grid-cols-2">
             {[
               {
-                num: "Example 1",
-                entity: "Government",
-                opinion: "Major infrastructure development plan improving connectivity.",
-                polarity: "Positive",
-                cls: "pill-positive",
-                intensity: 8,
-              },
-              {
-                num: "Example 2",
-                entity: "Opposition",
-                opinion: "Criticized the plan as unrealistic and poorly implemented.",
-                polarity: "Negative",
-                cls: "pill-negative",
-                intensity: 9,
-              },
+                  num: "Example 1",
+                  statement:
+                    "The government announced a major infrastructure development initiative aimed at improving rural connectivity and boosting economic growth across underserved regions.",
+                  entity: "Government",
+                  opinion:
+                    "Major infrastructure development initiative aimed at improving rural connectivity and boosting economic growth.",
+                  polarity: "Positive",
+                  cls: "pill-positive",
+                  intensity: 8,
+                },
+                {
+                  num: "Example 2",
+                  statement:
+                    "Opposition leaders criticized the proposed policy, arguing that it lacks a clear implementation roadmap and may not deliver the promised outcomes.",
+                  entity: "Opposition Leaders",
+                  opinion:
+                    "The policy lacks a clear implementation roadmap and may not deliver the promised outcomes.",
+                  polarity: "Negative",
+                  cls: "pill-negative",
+                  intensity: 9,
+                },
+                {
+                  num: "Example 3",
+                  statement:
+                    "Industry representatives welcomed the reforms, stating that the measures could encourage investment, innovation, and long-term economic stability.",
+                  entity: "Industry Representatives",
+                  opinion:
+                    "The reforms could encourage investment, innovation, and long-term economic stability.",
+                  polarity: "Positive",
+                  cls: "pill-positive",
+                  intensity: 7,
+                },
+                {
+                  num: "Example 4",
+                  statement:
+                    "Several public stakeholders expressed concerns regarding implementation challenges, resource allocation, and the overall sustainability of the initiative.",
+                  entity: "Public Stakeholders",
+                  opinion:
+                    "Concerns regarding implementation challenges, resource allocation, and sustainability.",
+                  polarity: "Negative",
+                  cls: "pill-negative",
+                  intensity: 6,
+                }
+              ,
             ].map((ex, i) => (
               <div key={ex.num} className="reveal card-pro p-8" style={{ transitionDelay: `${i * 0.08}s` }}>
                 <div className="mb-6 flex items-center justify-between">
                   <span className="font-mono text-xs tracking-widest text-muted-foreground">{ex.num.toUpperCase()}</span>
                   <span className={`pill ${ex.cls}`}>{ex.polarity}</span>
                 </div>
+                <Field label="Statement" value={ex.statement} />
 
                 <Field label="Target Entity" value={ex.entity} mono />
+
                 <Field label="Opinion" value={ex.opinion} />
 
                 <div className="mt-5 grid grid-cols-2 gap-5 border-t border-white/8 pt-5">
@@ -336,52 +367,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Previous Events & References */}
-      <section id="previous" className="section relative z-10">
-        <div className="mx-auto max-w-5xl">
-          <div className="reveal text-center">
-            <span className="eyebrow">References</span>
-            <h2 className="font-display text-4xl font-semibold md:text-5xl">
-              <span className="heading-hover">Previous Events & References</span>
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-muted-foreground">
-              Official resources for the FIRE evaluation campaign and related events.
-            </p>
-          </div>
-
-          <div className="reveal mt-14 card-pro relative overflow-hidden p-8 md:p-12">
-            <div
-              className="absolute inset-0 -z-10 opacity-50"
-              style={{ background: "radial-gradient(ellipse at top right, oklch(0.32 0.08 220 / 0.35), transparent 60%)" }}
-            />
-
-            <div className="mx-auto max-w-xl">
-              <a
-                href="https://fire.irsi.org.in/fire/2025/home"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="group flex flex-col rounded-lg border border-white/10 bg-white/[0.025] p-6 transition hover:-translate-y-1 hover:border-[oklch(0.78_0.12_215)]/40 hover:bg-white/[0.05]"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="rounded-sm border border-[oklch(0.78_0.12_215)]/40 bg-[oklch(0.78_0.12_215)]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
-                    Conference
-                  </span>
-                  <ExternalLink className="h-4 w-4 text-muted-foreground transition group-hover:text-[oklch(0.82_0.10_215)]" />
-                </div>
-                <h3 className="heading-hover mt-5 font-display text-xl font-semibold">FIRE 2025</h3>
-                <div className="mt-1 font-mono text-[11px] text-muted-foreground">fire.irsi.org.in</div>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
-                  Official FIRE conference website showcasing shared tasks, workshops, evaluation campaigns, and multilingual NLP research activities.
-                </p>
-                <span className="link-underline mt-5 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[oklch(0.82_0.10_215)]">
-                  Visit Website <ArrowRight className="h-3 w-3" />
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
+  
       {/* Organizers */}
       <section id="organizers" className="section relative z-10">
         <div className="mx-auto max-w-5xl">
